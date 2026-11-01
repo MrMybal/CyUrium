@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "extensions": [
+    {
+      "id": "uBlock0@raymondhill.net",
+      "name": "uBlock Origin",
+      "version": "1.75.0",
+      "file": "ublock-origin-1.75.0.xpi",
+      "url": "https://addons.mozilla.org/firefox/downloads/file/5034826/ublock_origin-1.75.0.xpi",
+      "sha256": "5b74415860456370644bd80f16125e865b0e6c356bb5dfcfb84069967eaa5287",
+      "license": "GPL-3.0-only",
+      "source": {
+        "file": "uBlock-1.75.0-source.tar.gz",
+        "url": "https://codeload.github.com/gorhill/uBlock/tar.gz/refs/tags/1.75.0",
+        "sha256": "a518c7d6e6b3f81d1a738befeb617abba59f93bd6b1e626da079a1003e9db52b"
+      }
+    }
+  ]
+}

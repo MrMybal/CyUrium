@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "approved_files": 98,
+  "live_runtime_additions_rejected": [
+    "kl_config_62fbb8f7_c917_4cf7_957a_aad2b8fa768c.cfg",
+    "defaults/pref/kl_prefs_62fbb8f7_c917_4cf7_957a_aad2b8fa768c.js"
+  ],
+  "source_additions_unchanged": true,
+  "clean_stage": "D:\\_Project\\CyUrium\\dist\\release-staging\\2026-11-01-1793489683257135900\\CyUrium"
+}

@@ -1,0 +1,106 @@
+# SPDX-FileCopyrightText: 2026 Cyberalien
+# SPDX-License-Identifier: GPL-3.0-only
+name: Prepare signed Windows release
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version major.minor.patch, for example 0.3.1'
+        required: true
+        type: string
+      channel:
+        description: Release channel
+        type: choice
+        options: [stable, preview]
+        default: stable
+      create_draft:
+        description: Create a draft in the public Releases repository
+        type: boolean
+        default: false
+permissions:
+  contents: read
+concurrency:
+  group: signed-windows-release
+  cancel-in-progress: false
+jobs:
+  release:
+    runs-on: windows-latest
+    env:
+      RELEASE_VERSION: ${{ inputs.version }}
+      RELEASE_CHANNEL: ${{ inputs.channel }}
+      RELEASE_REPOSITORY: ${{ vars.CYURIUM_RELEASE_REPOSITORY }}
+      RELEASE_PUBLIC_KEY: ${{ vars.CYURIUM_RELEASE_PUBLIC_KEY }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.11'
+      - name: Install packaging dependency
+        run: python -m pip install -r tools/requirements-release.txt
+      - name: Configure the public update channel and version
+        shell: pwsh
+        run: |
+          if (!$env:RELEASE_REPOSITORY -or !$env:RELEASE_PUBLIC_KEY) { throw 'Configure CYURIUM_RELEASE_REPOSITORY and CYURIUM_RELEASE_PUBLIC_KEY repository variables.' }
+          python tools/release.py configure --repository $env:RELEASE_REPOSITORY --public-key $env:RELEASE_PUBLIC_KEY --channel $env:RELEASE_CHANNEL --version $env:RELEASE_VERSION
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+      - name: Build and test the browser
+        run: python tools/build.py
+      - name: Check pinned Gecko security maintenance
+        run: python tools/check_gecko.py
+      - name: Test release packaging and replacement
+        shell: pwsh
+        run: |
+          python -m unittest discover -s tests -p test_release.py
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          python tools/test_updater.py
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          python tools/test_bridge_peer.py
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          python tools/test_security.py
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          python tools/test_session.py
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          python tools/test_update_channel.py
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          python tools/test_sdk.py
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          python tools/test_assistant.py
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+      - name: Sign the release package
+        shell: pwsh
+        env:
+          RELEASE_PRIVATE_KEY: ${{ secrets.CYURIUM_RELEASE_SIGNING_KEY }}
+        run: |
+          if (!$env:RELEASE_PRIVATE_KEY) { throw 'Configure the CYURIUM_RELEASE_SIGNING_KEY secret (PEM).' }
+          $releaseKeyPath = Join-Path $env:RUNNER_TEMP 'cyurium-release-signing.pem'
+          try {
+            [System.IO.File]::WriteAllText($releaseKeyPath, $env:RELEASE_PRIVATE_KEY)
+            python tools/release.py stage --output dist/release-source/CyUrium
+            if ($LASTEXITCODE) { exit $LASTEXITCODE }
+            python tools/release.py package --source dist/release-source/CyUrium --key $releaseKeyPath --repository $env:RELEASE_REPOSITORY --version $env:RELEASE_VERSION
+            if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          } finally {
+            Remove-Item -LiteralPath $releaseKeyPath -ErrorAction SilentlyContinue
+          }
+      - uses: actions/upload-artifact@v7
+        with:
+          name: CyUrium-${{ inputs.version }}-windows-x64-signed
+          path: dist/releases/
+          if-no-files-found: error
+          compression-level: 0
+      - name: Create a reviewable draft release
+        if: inputs.create_draft
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.CYURIUM_RELEASE_TOKEN }}
+        run: |
+          if (!$env:GH_TOKEN) { throw 'Configure CYURIUM_RELEASE_TOKEN with Contents:write access to the destination repository.' }
+          $releaseBodyPath = Join-Path $env:RUNNER_TEMP 'cyurium-release-notes.md'
+          [System.IO.File]::WriteAllText($releaseBodyPath, "CyUrium $env:RELEASE_VERSION for Windows x64.`n`nChannel: $env:RELEASE_CHANNEL. Full portable browser package with Gecko.`n`nPublisher signature and SHA-256 are checked by the built-in updater.`n")
+          $releaseArgs = @('release', 'create', "v$env:RELEASE_VERSION", '--repo', $env:RELEASE_REPOSITORY, '--draft', '--title', "CyUrium $env:RELEASE_VERSION", '--notes-file', $releaseBodyPath)
+          if ($env:RELEASE_CHANNEL -eq 'preview') { $releaseArgs += '--prerelease' }
+          $releaseArgs += @("dist/releases/CyUrium-$env:RELEASE_VERSION-windows-x64.zip", 'dist/releases/latest-windows-x64.json', 'dist/releases/SHA256SUMS')
+          gh @releaseArgs
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }

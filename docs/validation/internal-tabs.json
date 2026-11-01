@@ -1,0 +1,22 @@
+{
+  "checks": [
+    "HTML and JavaScript",
+    "native menu above web content",
+    "management pages use separate tabs",
+    "original web surface hidden while management tab is selected",
+    "original document and form preserved after closing management tabs",
+    "form state",
+    "back/forward with document state",
+    "native child embedding",
+    "detach first window",
+    "detach last tab of a secondary window",
+    "attach without reload",
+    "real HTTPS navigation",
+    "automatic recovery after actual engine termination"
+  ],
+  "content_process": 50912,
+  "engine": "Gecko",
+  "https": "https://example.org/",
+  "passed": true,
+  "version": "153.6.0"
+}

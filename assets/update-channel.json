@@ -1,0 +1,9 @@
+{
+  "provider": "github",
+  "repository": "",
+  "channel": "stable",
+  "manifest_asset": "latest-windows-x64.json",
+  "public_key_spki": "",
+  "platform": "windows-x64",
+  "auto_check": true
+}

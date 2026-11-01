@@ -1,0 +1,26 @@
+[
+  {
+    "case": "success",
+    "passed": true,
+    "result": {
+      "backup": "D:\\_Project\\CyUrium\\.runtime\\qa\\updater\\1793489385241826200\\success\\app.previous-1793489385251777900",
+      "success": true
+    }
+  },
+  {
+    "case": "rollback",
+    "passed": true,
+    "result": {
+      "error": "Updated browser failed its startup check",
+      "success": false
+    }
+  },
+  {
+    "case": "tampered",
+    "passed": true,
+    "result": {
+      "error": "Package integrity check failed: version.txt",
+      "success": false
+    }
+  }
+]

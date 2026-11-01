@@ -1,0 +1,19 @@
+{
+  "checks": [
+    "HTML and JavaScript",
+    "native menu above web content",
+    "form state",
+    "back/forward with document state",
+    "native child embedding",
+    "detach first window",
+    "detach last tab of a secondary window",
+    "attach without reload",
+    "real HTTPS navigation",
+    "automatic recovery after actual engine termination"
+  ],
+  "content_process": 4124,
+  "engine": "Gecko",
+  "https": "https://example.org/",
+  "passed": true,
+  "version": "153.6.0"
+}

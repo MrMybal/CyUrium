@@ -1,0 +1,8 @@
+{
+  "version": "153.6.0esr",
+  "url": "https://archive.mozilla.org/pub/firefox/releases/153.6.0esr/win64/en-US/Firefox%20Setup%20153.6.0esr.exe",
+  "sha512": "d6d73183ae947775bb93f95879a88d6d60b1f64276c36997bfd472097d1945a94d902b95c2174fd63181e6f6bcbb6695843cd3c711118201f23dcbba46fae1e4",
+  "size": 90500800,
+  "source": "https://hg.mozilla.org/releases/mozilla-esr153/rev/d63de7b9609253a860fbb0050f678700f4cdc492",
+  "platform": "windows-x86_64"
+}

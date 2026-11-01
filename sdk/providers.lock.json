@@ -1,0 +1,26 @@
+{
+  "version": "0.1.8",
+  "source": "https://github.com/MrMybal/CyUEMCPSDK",
+  "files": {
+    "cyue_mcp/__init__.py": "d319e0bf2c2ce7610bcca1072adee23c509b2c6ecadabed4eeab5b5fd802c903",
+    "cyue_mcp/connectors.py": "86927592f535de43f9da0be88bcb6f32e5c768878d464d5889e27a62e7a06169",
+    "cyue_mcp/providers/__init__.py": "1baf46202f09f05bc5d0299af683332aa23b661a35b7060041946c3957d8f879",
+    "cyue_mcp/providers/cli.py": "a3d5314b038ae2168bda95cb252990d2ec50791a8104f7c78de7f5c16730a7fe",
+    "cyue_mcp/providers/codex.py": "c950ad23c08e129cd9ffaee517a580baef1a93df8411f57feb8a57c5f4cd4dac",
+    "cyue_mcp/providers/core.py": "b388a3cb74096c782932b665a0fad3dbecda07d0b8ca65cd4db83611a17e326b",
+    "cyue_mcp/providers/descriptors/anthropic.json": "d08904a9d09682f6d5af4c54f900557737ef5f8b7c0ae452a4ccc2f3a6bcb137",
+    "cyue_mcp/providers/descriptors/antigravity.json": "daf1e4909b3cf4adf12f1032d0b8061020f3b376aed5845868a160d7197dd131",
+    "cyue_mcp/providers/descriptors/claude-code.json": "750a55d48157a4dedc26159c26cf81fc41bb8e1d367930bf59f060207f36eae8",
+    "cyue_mcp/providers/descriptors/codebuddy.json": "5ffb261e63dcde3a04a8fa0caded2f72df94c0feb94077cc86c98be20bde0b4d",
+    "cyue_mcp/providers/descriptors/codex.json": "1226515182e386ed25528105431864387142eb228aa3bca8877b6ec022697cb3",
+    "cyue_mcp/providers/descriptors/command-code.json": "b581f8c0c751fd212a04207e571ece3595f4f73ccca13cb139a532caa7a5a322",
+    "cyue_mcp/providers/descriptors/devin.json": "4726eb9b3e3a14180869d38e6181a7f993d78182983b70f73ea9e3f43d375ffb",
+    "cyue_mcp/providers/descriptors/local.json": "60c3e6c03fe4ef703a25ab600b3189782512536c22a6e3f25876b2a093243525",
+    "cyue_mcp/providers/descriptors/ollama.json": "cd60b15f6d56d573b500dc2e5485348fc64724bbbb6dcfd42b72dbf6b0eeaf7d",
+    "cyue_mcp/providers/descriptors/opencode.json": "4474526fd37610b2fe8f123197d641f2fd143af44242630c7f7f19aa9f1eec88",
+    "cyue_mcp/providers/descriptors/openrouter.json": "845361c4a760ea6af3f4af28bcbcee3a51e73860051bd85a81267961c928b218",
+    "cyue_mcp/providers/http.py": "477dc8cd82f6dac48ed83a44e33c7a448700f87a1273a15803ff277472d97d80",
+    "cyue_mcp/providers/process.py": "608a0af708e9c0a7d9f1a80f932bf35311499f1ae3f37231475c12be7a7b44f6",
+    "cyue_mcp/providers/registry.py": "fc0615a02722e04cce8317954c0e28036011bc754f77ceb7bf6fd15a0d6f1afd"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "sdk": "CyToolsCore 0.10.1",
+  "mcp": "1.30.0",
+  "checks": [
+    "Per-connection authenticated SDK identities",
+    "Jobs isolated between SDK clients",
+    "Generic SDK controls cannot import local files",
+    "Real Gecko snapshot excludes input/textarea values",
+    "Native SDK fills and clicks actual Gecko page",
+    "Sensitive fields and stale document IDs refused",
+    "Detach preserves live Gecko document",
+    "Cross-window tab move preserves live document",
+    "Privileged and local-file automation excluded",
+    "HTTP authentication / browser Origin refusal",
+    "HTTP authentication / browser Origin refusal",
+    "HTTP authentication / browser Origin refusal",
+    "Discovery secret protected with OS-account DPAPI",
+    "Official MCP discovery through native executable",
+    "Official MCP job submission",
+    "Official MCP completed native browser job",
+    "Owned SDK process stops with browser",
+    "Read-only client can inspect browser state",
+    "Read-only SDK rejects browser mutations before dispatch",
+    "External SDK cannot use the native assistant identity"
+  ]
+}

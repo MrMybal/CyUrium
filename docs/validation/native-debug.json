@@ -1,0 +1,5 @@
+{
+  "passed": true,
+  "backend": "direct3d12",
+  "checks": ["drag reorder", "detach to distinct native window", "cross-window attach", "preserved identity and history", "close primary while secondary survives", "close last window"]
+}

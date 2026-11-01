@@ -1,0 +1,31 @@
+CyUrium desktop
+Copyright (C) 2026 Cyberalien
+SPDX-License-Identifier: GPL-3.0-only
+
+CyUrium is free software: you can redistribute it and/or modify it under
+the terms of the GNU General Public License, version 3, as published by
+the Free Software Foundation.
+
+CyUrium is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+for more details.
+
+You should have received a copy of the GNU General Public License along
+with CyUrium, in LICENSE. If not, see https://www.gnu.org/licenses/.
+
+Scope
+-----
+This licence covers the original CyUrium source code, tests, build scripts,
+documentation and project-owner artwork in this project, except where a
+file or component explicitly identifies a different licence.
+
+The Gecko runtime and Mozilla resources retain their MPL 2.0 and other
+upstream licences. Third-party libraries, SDK packages, provider snapshots,
+fonts and the separate uBlock Origin extension retain their own licences.
+In particular, third_party/, sdk/vendor/, sdk/packages/ and the embedded
+Python runtime are not relicensed by this notice. The original MIT licences
+of CyUI, CyToolsCore and CyUEMCPSDK remain in effect for those components.
+
+See THIRD_PARTY_NOTICES.md, licenses/, LICENCES/, and the notices shipped
+with engine/ for the relevant copyright notices and licence texts.

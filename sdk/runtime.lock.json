@@ -1,0 +1,5 @@
+{
+  "cytoolsCore": {"version":"0.10.1", "source":"https://github.com/MrMybal/CyToolsCore", "revision":"d53159087157530b3d4c8e58c09a008a544a7fcb", "wheel":"cytools_core-0.10.1-py3-none-any.whl", "sha256":"5f2f6f0eccdcce960ff7ff9deee36280a4ee1c671cc2ba29b103fa15bb479702"},
+  "python": {"version":"3.14.10", "url":"https://www.python.org/ftp/python/3.14.10/python-3.14.10-embed-amd64.zip", "sha256":"90905e64a840557d8c1bc4f5b74db3d7ee85e3ffb217611cac1c7813acea4159"},
+  "mcp":"1.30.0"
+}

@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "date": "2026-11-01",
+  "license": "GPL-3.0-only",
+  "copyright": "2026 Cyberalien",
+  "packages": {
+    "windows": {
+      "LICENSE": "fb981668c18a279e285fc4d83fba1e836cc84dd4daa73c9697d3cfd2d8aca6e0",
+      "NOTICE": "22d090d0fe38fd1b8629f97edff2a330156f90b71a779360c8edafb3e2f82232",
+      "THIRD_PARTY_NOTICES.md": "f9aa92ea80867fc5fa6bb6e3de970dc9366f20ed4301cbfd460a9cc9ab2a67b1"
+    },
+    "windows-debug": {
+      "LICENSE": "fb981668c18a279e285fc4d83fba1e836cc84dd4daa73c9697d3cfd2d8aca6e0",
+      "NOTICE": "22d090d0fe38fd1b8629f97edff2a330156f90b71a779360c8edafb3e2f82232",
+      "THIRD_PARTY_NOTICES.md": "f9aa92ea80867fc5fa6bb6e3de970dc9366f20ed4301cbfd460a9cc9ab2a67b1"
+    }
+  },
+  "native_tests": {
+    "release": 5,
+    "debug": 5
+  },
+  "release_tool_tests": 4,
+  "published": false
+}

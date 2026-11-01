@@ -1,0 +1,8 @@
+CyToolsCore 0.10.1 (MIT): https://github.com/MrMybal/CyToolsCore
+Integration guide: https://github.com/MrMybal/CyToolsCore/blob/main/Docs/UpdateExistingProducts.md
+CyUEMCPSDK 0.1.8 provider transports and conversation service (MIT): https://github.com/MrMybal/CyUEMCPSDK
+Only portable Python providers are included; no Unreal runtime is required.
+MCP Python SDK: https://github.com/modelcontextprotocol/python-sdk
+CPython embedded runtime: https://www.python.org/downloads/release/python-31410/
+Full Python and dependency notices are included in LICENCES/SDK in the packaged product.
+Existing native UI/JSON/SDL notices remain in licenses/.

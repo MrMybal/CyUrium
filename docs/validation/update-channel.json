@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "transport": "isolated loopback HTTP fixture; production requires HTTPS",
+  "checks": [
+    "corrupt download rejected",
+    "oversized download rejected",
+    "traversal download rejected",
+    "staged update retained across checks",
+    "GitHub latest Release discovery",
+    "302 manifest and package redirects",
+    "invalid signature rejected",
+    "P-256 signature accepted",
+    "corrupted package rejected",
+    "verified package extracted",
+    "tag-mismatch rejected",
+    "foreign-package rejected",
+    "invalid-hash rejected",
+    "missing-asset rejected",
+    "not-found rejected",
+    "stable-prerelease rejected",
+    "insecure-redirect rejected",
+    "insecure-second-redirect rejected",
+    "redirect-loop rejected",
+    "older version cannot be installed",
+    "GitHub rate limit respected",
+    "preview accepts newest prerelease and excludes drafts",
+    "legacy signed HTTPS manifest provider retained",
+    "automatic check and persisted daily timestamp",
+    "API headers and anonymous requests without cookies"
+  ]
+}

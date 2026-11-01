@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "cases": [
+    {
+      "case": "preauth-command",
+      "passed": true,
+      "window_titles_contain_secret": false
+    },
+    {
+      "case": "wrong-server-proof",
+      "passed": true,
+      "window_titles_contain_secret": false
+    }
+  ]
+}

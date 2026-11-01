@@ -1,0 +1,96 @@
+{
+  "passed": true,
+  "checks": [
+    "mutually authenticated real Gecko bridge",
+    "sandbox effective level above zero",
+    "Fission enabled",
+    "cross-site iframe in separate process",
+    "same-origin DOM access denied",
+    "no privileged globals in pages",
+    "no form capture by default",
+    "sensitive fields excluded after opt-in",
+    "disabling capture clears fields",
+    "CSP inline script blocked",
+    "HTTPS identity from Gecko",
+    "untrusted certificate response blocked",
+    "Mozilla harmless phishing test blocked"
+  ],
+  "security": {
+    "remote": true,
+    "fission": true,
+    "sandboxLevel": 9,
+    "win32k": "Win32k Lockdown enabled -- default value is true",
+    "safeBrowsing": {
+      "initialized": true,
+      "phishing": true,
+      "malware": true,
+      "downloads": true
+    },
+    "tabs": [
+      {
+        "id": 1,
+        "remoteType": "webIsolated=http://127.0.0.1",
+        "remoteSubframes": true,
+        "documentURI": "http://127.0.0.1:62476/fixture",
+        "security": "insecure",
+        "origin": "http://127.0.0.1:62476",
+        "frames": {
+          "url": "http://127.0.0.1:62476/fixture",
+          "process": 61792,
+          "children": [
+            {
+              "url": "http://localhost:62476/frame",
+              "process": 24476,
+              "children": []
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "certificate": {
+    "state": {
+      "type": "state",
+      "tab": 4,
+      "url": "https://127.0.0.1:62538/untrusted-certificate",
+      "title": "",
+      "loading": false,
+      "canBack": false,
+      "canForward": false,
+      "error": "Connexion s\u00e9curis\u00e9e refus\u00e9e par Gecko : certificat ou protocole non valid\u00e9.",
+      "security": "unknown",
+      "securityOrigin": "",
+      "securityIssuer": "",
+      "request": 0,
+      "operation": "load"
+    },
+    "diagnostic": {
+      "id": 4,
+      "remoteType": "webIsolated=https://127.0.0.1",
+      "remoteSubframes": true,
+      "documentURI": "about:certerror?e=nssBadCert&u=https%3A//127.0.0.1%3A62538/untrusted-certificate&c=UTF-8&d=%20&a=",
+      "security": "broken",
+      "origin": "https://127.0.0.1:62538",
+      "frames": {
+        "url": "about:certerror?e=nssBadCert&u=https%3A//127.0.0.1%3A62538/untrusted-certificate&c=UTF-8&d=%20&a=",
+        "process": 79952,
+        "children": []
+      }
+    }
+  },
+  "phishing": {
+    "type": "state",
+    "tab": 5,
+    "url": "https://itisatrap.org/firefox/its-a-trap.html",
+    "title": "",
+    "loading": false,
+    "canBack": false,
+    "canForward": false,
+    "error": "Page bloqu\u00e9e par la protection contre les sites trompeurs ou dangereux.",
+    "security": "unknown",
+    "securityOrigin": "",
+    "securityIssuer": "",
+    "request": 0,
+    "operation": "load"
+  }
+}

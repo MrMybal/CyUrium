@@ -1,0 +1,10 @@
+{
+  "scope": "desktop interface only; Gecko is not connected",
+  "gpu_backend": "direct3d12",
+  "elapsed_seconds": 8,
+  "rendered_frames": 72,
+  "ui_build_mean_ms": 0.343518,
+  "ui_build_max_ms": 10.8694,
+  "process_cpu_ms": 93.75,
+  "resident_memory_mb": 93.3203
+}

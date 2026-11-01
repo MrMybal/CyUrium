@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "checks": [
+    "forms excluded by default",
+    "Windows account encryption",
+    "actual shell process termination",
+    "unclean session marker",
+    "two native windows restored",
+    "original tab identity",
+    "opt-in form value restored into new Gecko document",
+    "no plaintext form values or URLs in snapshots",
+    "clean exit marker"
+  ]
+}

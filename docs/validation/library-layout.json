@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "configuration": "Debug / assertions enabled",
+  "native_bookmarks": 200,
+  "scale": 1.5,
+  "window": [
+    760,
+    620
+  ],
+  "checks": [
+    "previous assertion reproduced by UI regression test",
+    "populated bookmark/history lists and scrolling at 85, 100, 125 and 150 percent",
+    "actual native Debug startup with 200 bookmarks at 150 percent in a narrow window",
+    "virtualized list retained"
+  ],
+  "metrics": {
+    "scope": "native shell process only; excludes Gecko child processes",
+    "browser_windows": 1,
+    "session_recovered": false,
+    "gpu_backend": "direct3d12",
+    "elapsed_seconds": 3,
+    "rendered_frames": 77,
+    "ui_build_mean_ms": 0.275586,
+    "ui_build_max_ms": 2.0693,
+    "process_cpu_ms": 78.125,
+    "resident_memory_mb": 87.168
+  }
+}

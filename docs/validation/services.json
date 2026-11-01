@@ -1,0 +1,453 @@
+{
+  "passed": true,
+  "checks": [
+    "real geolocation prompt",
+    "persisted permission denial",
+    "permission reset",
+    "real microphone prompt",
+    "microphone grant with fake device",
+    "active capture indicator",
+    "native capture revocation",
+    "real attachment download",
+    "download bytes and list removal",
+    "GPU diagnostics"
+  ],
+  "graphics": {
+    "enabled": true,
+    "compositor": "WebRender",
+    "features": [
+      {
+        "name": "HW_COMPOSITING",
+        "description": "Compositing",
+        "status": "available",
+        "log": [
+          {
+            "type": "default",
+            "status": "available"
+          }
+        ]
+      },
+      {
+        "name": "D3D11_COMPOSITING",
+        "description": "Direct3D11 Compositing",
+        "status": "available",
+        "log": [
+          {
+            "type": "default",
+            "status": "available"
+          }
+        ]
+      },
+      {
+        "name": "D3D11_HW_ANGLE",
+        "description": "Direct3D11 hardware ANGLE",
+        "status": "available",
+        "log": [
+          {
+            "type": "default",
+            "status": "available"
+          }
+        ]
+      },
+      {
+        "name": "GPU_PROCESS",
+        "description": "GPU Process",
+        "status": "available",
+        "log": [
+          {
+            "type": "default",
+            "status": "available"
+          }
+        ]
+      },
+      {
+        "name": "WEBRENDER",
+        "description": "WebRender",
+        "status": "available",
+        "log": [
+          {
+            "type": "default",
+            "status": "available"
+          }
+        ]
+      },
+      {
+        "name": "WEBRENDER_COMPOSITOR",
+        "description": "WebRender native compositor",
+        "status": "unavailable",
+        "log": [
+          {
+            "type": "default",
+            "status": "available"
+          },
+          {
+            "type": "runtime",
+            "status": "unavailable",
+            "failureId": "NVIDIA_REFRESH_RATE_MIXED",
+            "message": "No DirectComposition usage"
+          }
+        ]
+      },
+      {
+        "name": "WEBRENDER_PARTIAL",
+        "description": "WebRender partial present",
+        "status": "available",
+        "log": [
+          {
+            "type": "default",
+            "status": "available"
+          }
+        ]
+      },
+      {
+        "name": "WEBRENDER_SHADER_CACHE",
+        "description": "WebRender shader disk cache",
+        "status": "available",
+        "log": [
+          {
+            "type": "default",
+            "status": "available"
+          }
+        ]
+      },
+      {
+        "name": "WEBRENDER_OPTIMIZED_SHADERS",
+        "description": "WebRender optimized shaders",
+        "status": "available",
+        "log": [
+          {
+            "type": "default",
+            "status": "available"
+          }
+        ]
+      },
+      {
+        "name": "WEBRENDER_ANGLE",
+        "description": "WebRender ANGLE",
+        "status": "available",
+        "log": [
+          {
+            "type": "default",
+            "status": "available"
+          }
+        ]
+      },
+      {
+        "name": "WEBRENDER_DCOMP_PRESENT",
+        "description": "WebRender DirectComposition",
+        "status": "blocklisted",
+        "log": [
+          {
+            "type": "default",
+            "status": "available"
+          },
+          {
+            "type": "env",
+            "status": "blocklisted",
+            "failureId": "NVIDIA_REFRESH_RATE_MIXED",
+            "message": "Blocklisted by gfxInfo"
+          }
+        ]
+      },
+      {
+        "name": "WEBRENDER_SCISSORED_CACHE_CLEARS",
+        "description": "WebRender scissored cache clears",
+        "status": "available",
+        "log": [
+          {
+            "type": "default",
+            "status": "available"
+          }
+        ]
+      },
+      {
+        "name": "WEBGPU",
+        "description": "WebGPU",
+        "status": "available",
+        "log": [
+          {
+            "type": "default",
+            "status": "available"
+          }
+        ]
+      },
+      {
+        "name": "WINDOW_OCCLUSION",
+        "description": "WINDOW_OCCLUSION",
+        "status": "available",
+        "log": [
+          {
+            "type": "default",
+            "status": "available"
+          }
+        ]
+      },
+      {
+        "name": "HARDWARE_VIDEO_DECODING",
+        "description": "Hardware video decoding",
+        "status": "available",
+        "log": [
+          {
+            "type": "default",
+            "status": "available"
+          }
+        ]
+      },
+      {
+        "name": "HARDWARE_VIDEO_DECODING_VULKAN",
+        "description": "Hardware video decoding (Vulkan)",
+        "status": "disabled",
+        "log": [
+          {
+            "type": "default",
+            "status": "available"
+          },
+          {
+            "type": "user",
+            "status": "disabled",
+            "failureId": "FEATURE_HARDWARE_VIDEO_DECODING_VULKAN_PREF_DISABLED",
+            "message": "User disabled via media.hardware-video-decoding-vulkan.enabled "
+          }
+        ]
+      },
+      {
+        "name": "HARDWARE_VIDEO_ENCODING",
+        "description": "Hardware video encoding",
+        "status": "available",
+        "log": [
+          {
+            "type": "default",
+            "status": "available"
+          }
+        ]
+      },
+      {
+        "name": "HW_DECODED_VIDEO_ZERO_COPY",
+        "description": "Hardware decoded video zero copy",
+        "status": "available",
+        "log": [
+          {
+            "type": "default",
+            "status": "available"
+          }
+        ]
+      },
+      {
+        "name": "VP8_HW_DECODE",
+        "description": "VP8 hardware decoding",
+        "status": "available",
+        "log": [
+          {
+            "type": "default",
+            "status": "available"
+          }
+        ]
+      },
+      {
+        "name": "VP9_HW_DECODE",
+        "description": "VP9 hardware decoding",
+        "status": "available",
+        "log": [
+          {
+            "type": "default",
+            "status": "available"
+          }
+        ]
+      },
+      {
+        "name": "REUSE_DECODER_DEVICE",
+        "description": "Reuse decoder device",
+        "status": "available",
+        "log": [
+          {
+            "type": "default",
+            "status": "available"
+          }
+        ]
+      },
+      {
+        "name": "BACKDROP_FILTER",
+        "description": "Backdrop filter",
+        "status": "available",
+        "log": [
+          {
+            "type": "default",
+            "status": "available"
+          }
+        ]
+      },
+      {
+        "name": "CANVAS_RENDERER_THREAD",
+        "description": "canvas renderer thread",
+        "status": "available",
+        "log": [
+          {
+            "type": "default",
+            "status": "available"
+          }
+        ]
+      },
+      {
+        "name": "ACCELERATED_CANVAS2D",
+        "description": "Accelerated Canvas2D",
+        "status": "available",
+        "log": [
+          {
+            "type": "default",
+            "status": "available"
+          }
+        ]
+      },
+      {
+        "name": "H264_HW_DECODE",
+        "description": "H.264 hardware decoding",
+        "status": "available",
+        "log": [
+          {
+            "type": "default",
+            "status": "available"
+          }
+        ]
+      },
+      {
+        "name": "AV1_HW_DECODE",
+        "description": "AV1 hardware decoding",
+        "status": "available",
+        "log": [
+          {
+            "type": "default",
+            "status": "available"
+          }
+        ]
+      },
+      {
+        "name": "HEVC_HW_DECODE",
+        "description": "HEVC hardware decoding",
+        "status": "available",
+        "log": [
+          {
+            "type": "default",
+            "status": "available"
+          }
+        ]
+      },
+      {
+        "name": "VP8_HW_ENCODE",
+        "description": "VP8 hardware encoding",
+        "status": "available",
+        "log": [
+          {
+            "type": "default",
+            "status": "available"
+          }
+        ]
+      },
+      {
+        "name": "VP9_HW_ENCODE",
+        "description": "VP9 hardware encoding",
+        "status": "available",
+        "log": [
+          {
+            "type": "default",
+            "status": "available"
+          }
+        ]
+      },
+      {
+        "name": "H264_HW_ENCODE",
+        "description": "H.264 hardware encoding",
+        "status": "available",
+        "log": [
+          {
+            "type": "default",
+            "status": "available"
+          }
+        ]
+      },
+      {
+        "name": "AV1_HW_ENCODE",
+        "description": "AV1 hardware encoding",
+        "status": "available",
+        "log": [
+          {
+            "type": "default",
+            "status": "available"
+          }
+        ]
+      },
+      {
+        "name": "HEVC_HW_ENCODE",
+        "description": "HEVC hardware encoding",
+        "status": "available",
+        "log": [
+          {
+            "type": "default",
+            "status": "available"
+          }
+        ]
+      },
+      {
+        "name": "WMF_HW_DRM",
+        "description": "Windows Media Foundation hardware DRM",
+        "status": "disabled",
+        "log": [
+          {
+            "type": "default",
+            "status": "available"
+          },
+          {
+            "type": "user",
+            "status": "disabled",
+            "failureId": "FEATURE_FAILURE_USER_FORCE_DISABLED",
+            "message": "Force disabled by 'media.wmf.media-engine.enabled'"
+          }
+        ]
+      },
+      {
+        "name": "GL_NORM16_TEXTURES",
+        "description": "OpenGL normalized 16-bit texture formats",
+        "status": "available",
+        "log": [
+          {
+            "type": "default",
+            "status": "available"
+          }
+        ]
+      },
+      {
+        "name": "WEBGPU_EXTERNAL_TEXTURE",
+        "description": "WebGPU external textures",
+        "status": "available",
+        "log": [
+          {
+            "type": "default",
+            "status": "available"
+          }
+        ]
+      },
+      {
+        "name": "WEBGL",
+        "description": "WebGL",
+        "status": "available",
+        "log": [
+          {
+            "type": "default",
+            "status": "available"
+          }
+        ]
+      },
+      {
+        "name": "VIDEO_HDR",
+        "description": "HDR video supported",
+        "status": "available",
+        "log": [
+          {
+            "type": "default",
+            "status": "available"
+          }
+        ]
+      }
+    ],
+    "hardwareVideo": true
+  }
+}

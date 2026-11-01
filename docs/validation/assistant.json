@@ -1,0 +1,15 @@
+{
+  "checks": [
+    "native conversation commands",
+    "progressive response",
+    "second turn in same provider session",
+    "explicit real Gecko page attachment",
+    "native panel rendered beside Gecko",
+    "external MCP remains disabled",
+    "same real provider transcript across turns",
+    "page input values excluded from provider prompt",
+    "conversation file protected with Windows DPAPI"
+  ],
+  "passed": true,
+  "provider": "existing CyUEMCPSDK Ollama transport / local fixture"
+}

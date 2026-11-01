@@ -1,0 +1,55 @@
+{
+  "passed": true,
+  "checks": [
+    "Mozilla signature",
+    "permission confirmation",
+    "existing native tabs visible to extension API",
+    "native window identity",
+    "real extension popup browser",
+    "enable",
+    "disable",
+    "uninstall"
+  ],
+  "runtime": {
+    "background": "running",
+    "windows": [
+      {
+        "id": 77,
+        "count": 1
+      }
+    ],
+    "tabs": [
+      {
+        "id": 1,
+        "index": 0,
+        "windowId": 77,
+        "highlighted": true,
+        "active": true,
+        "attention": false,
+        "pinned": false,
+        "status": "complete",
+        "hidden": false,
+        "discarded": false,
+        "incognito": false,
+        "width": 1002,
+        "height": 702,
+        "lastAccessed": 1793545943475,
+        "autoDiscardable": true,
+        "mutedInfo": {
+          "muted": false
+        },
+        "isInReaderMode": false,
+        "sharingState": {
+          "camera": false,
+          "microphone": false
+        },
+        "successorTabId": -1,
+        "groupId": -1,
+        "splitViewId": -1,
+        "cookieStoreId": "firefox-default",
+        "url": "http://127.0.0.1:59689/fixture",
+        "title": "Services fixture"
+      }
+    ]
+  }
+}

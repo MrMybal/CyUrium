@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "stage": "D:\\_Project\\CyUrium\\dist\\release-staging\\sdk-final-20261101-012747\\CyUrium",
+  "native_sha256": "e3f31a06d74be3f83ddc881f135113e73655d52bcd995198664dbf0d0337520d",
+  "private_python": "3.14.10",
+  "cytools_core": "0.10.1 MIT",
+  "mcp": "1.30.0",
+  "providers": "CyUEMCPSDK 0.1.8 MIT",
+  "sdk_files": 1682,
+  "checks": [
+    "current SDK sources and contracts included",
+    "full SDK and dependency notices included",
+    "installed version and MIT metadata verified",
+    "actual standalone package launch and owned companion",
+    "conversation leaves external MCP disabled",
+    "no user profile, discovery secret or Python cache in package",
+    "publication key and repository unchanged"
+  ]
+}

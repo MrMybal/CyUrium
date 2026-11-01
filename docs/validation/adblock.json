@@ -1,0 +1,113 @@
+{
+  "passed": true,
+  "date": "2026-11-01",
+  "version": "1.75.0",
+  "release": {
+    "passed": true,
+    "version": "1.75.0",
+    "addon": "uBlock0@raymondhill.net",
+    "checks": [
+      "packaged Mozilla-signed extension installed without a prompt",
+      "first page filtered with bundled EasyList; no public site needed",
+      "normal script preserved; ad script never reaches fixture server",
+      "existing disabled installation respected during migration",
+      "re-enabled extension filters after restart",
+      "uninstall preserved after restart"
+    ],
+    "observations": [
+      {
+        "blocked": true,
+        "requests": [
+          "/fixture",
+          "/content.js"
+        ],
+        "page": "control:true;ad:false"
+      },
+      {
+        "blocked": false,
+        "requests": [
+          "/fixture",
+          "/content.js",
+          "/ads/custom_ads.js"
+        ],
+        "page": "control:true;ad:true"
+      },
+      {
+        "blocked": true,
+        "requests": [
+          "/fixture",
+          "/content.js"
+        ],
+        "page": "control:true;ad:false"
+      },
+      {
+        "blocked": false,
+        "requests": [
+          "/fixture",
+          "/ads/custom_ads.js",
+          "/content.js"
+        ],
+        "page": "control:true;ad:true"
+      }
+    ]
+  },
+  "debug": {
+    "passed": true,
+    "version": "1.75.0",
+    "addon": "uBlock0@raymondhill.net",
+    "checks": [
+      "packaged Mozilla-signed extension installed without a prompt",
+      "first page filtered with bundled EasyList; no public site needed",
+      "normal script preserved; ad script never reaches fixture server",
+      "existing disabled installation respected during migration",
+      "re-enabled extension filters after restart",
+      "uninstall preserved after restart"
+    ],
+    "observations": [
+      {
+        "blocked": true,
+        "requests": [
+          "/fixture",
+          "/content.js"
+        ],
+        "page": "control:true;ad:false"
+      },
+      {
+        "blocked": false,
+        "requests": [
+          "/fixture",
+          "/content.js",
+          "/ads/custom_ads.js"
+        ],
+        "page": "control:true;ad:true"
+      },
+      {
+        "blocked": true,
+        "requests": [
+          "/fixture",
+          "/content.js"
+        ],
+        "page": "control:true;ad:false"
+      },
+      {
+        "blocked": false,
+        "requests": [
+          "/fixture",
+          "/content.js",
+          "/ads/custom_ads.js"
+        ],
+        "page": "control:true;ad:true"
+      }
+    ]
+  },
+  "packaging_checks": [
+    "Pinned XPI and source archive in both runtime provenance manifests",
+    "Standalone GPL licence and unchanged XPI notices included",
+    "Corrupt download cache rejected"
+  ],
+  "native_tests": {
+    "release": 5,
+    "debug": 5
+  },
+  "release_tool_tests": 4
+}
