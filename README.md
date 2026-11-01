@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/branding/urium-logo.png" alt="CyUrium logo" width="128" height="128">
+</p>
+
 # CyUrium
 
 A native desktop browser with a Chrome-inspired interface, built with **C++20,
