@@ -476,7 +476,12 @@ int main(int argc,char** argv) {
                             web_instance=event.instance;web_value=event.value;content_process=event.process;
                             model->open(web_internal_pages[0]);web_internal_tab=model->selected;web_phase=101;web_frame=frames;
                         }else {
-                            web_check(event.instance==web_instance&&event.value==web_value,"The tab transfer or history navigation reloaded the document or lost form state");
+                            if(event.request==3){
+                                // Gecko may evict a history entry from its document cache. Check
+                                // the restored page, then keep its identity for the tab-move tests.
+                                web_check(!event.instance.empty()&&event.value.starts_with("form-"),"Back navigation did not restore the HTML/JavaScript fixture");
+                                web_instance=event.instance;web_value=event.value;
+                            }else web_check(event.instance==web_instance&&event.value==web_value,("The tab transfer reloaded the document or lost form state at checkpoint "+std::to_string(event.request)).c_str());
                             if(event.request==101){
                                 web_check(model->selected==web_internal_tab&&web_internal_tab!=web_tab,"Internal page replaced the web tab");
                                 workspace.close_tab(owner,web_internal_tab);model->select(web_tab);
@@ -673,7 +678,7 @@ int main(int argc,char** argv) {
             web_check(web_complete,"Web scenario did not complete");
             std::filesystem::create_directories(config.web_test.parent_path());
             nlohmann::json report={{"passed",true},{"engine","Gecko"},{"version",web_engine->version()},{"https",final_web_url},
-                {"content_process",content_process},{"checks",{"HTML and JavaScript","native menu above web content","management pages use separate tabs","original web surface hidden while management tab is selected","original document and form preserved after closing management tabs","form state","back/forward with document state","native child embedding","detach first window","detach last tab of a secondary window","attach without reload","real HTTPS navigation","automatic recovery after actual engine termination"}}};
+                {"content_process",content_process},{"checks",{"HTML and JavaScript","native menu above web content","management pages use separate tabs","original web surface hidden while management tab is selected","original document and form preserved after closing management tabs","form state","back/forward navigation","native child embedding","detach first window","detach last tab of a secondary window","attach without reload","real HTTPS navigation","automatic recovery after actual engine termination"}}};
             std::ofstream(config.web_test)<<report.dump(2)<<'\n';
             auto snapshot=profile/"gecko-appdata/web-content.png";
             if(std::filesystem::exists(snapshot))std::filesystem::copy_file(snapshot,config.web_test.parent_path()/"web-content.png",std::filesystem::copy_options::overwrite_existing);

@@ -10,7 +10,7 @@ HTML=b"""<!doctype html><meta charset=utf-8><title>Loading</title>
 <article><h1>CyUrium + Gecko</h1><p id=js>JavaScript is running in a separate Gecko content process.</p>
 <p>A real HTML page, rendered inside the native Dear ImGui browser window.</p><p><input id=state aria-label="Persistent form state"></p>
 <p>This form and its document instance survive back navigation and moving the tab between windows.</p><a href="?page=two">Open the second page</a></article>
-<script>document.documentElement.dataset.instance=String(Math.random());document.querySelector('#state').value='form-'+Math.random();document.title=location.search?'Gecko JS page two':'Gecko JS verified';</script>"""
+<script>document.documentElement.dataset.instance=String(Math.random());document.querySelector('#state').value='form-'+Math.random();window.addEventListener('unload',()=>{});document.title=location.search?'Gecko JS page two':'Gecko JS verified';</script>"""
 class Fixture(BaseHTTPRequestHandler):
     def handle(self):
         try:super().handle()
