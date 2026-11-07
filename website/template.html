@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#121313">
+  <title>{{t:meta.title}}</title>
+  <meta name="description" content="{{t:meta.description}}">
+  <meta property="og:title" content="{{t:meta.title}}">
+  <meta property="og:description" content="{{t:meta.description}}">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="{{asset:home}}">
+  <link rel="icon" href="{{asset:urium-logo}}" type="image/png">
+  <link rel="stylesheet" href="{{asset:styles}}">
+  <script src="{{asset:main}}" defer></script>
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="skip">{{t:skip}}</a>
+<header class="site-header">
+  <div class="header-inner wrap">
+    <a class="brand" href="#main"><img src="{{asset:urium-logo}}" width="30" height="30" alt=""><span>CyUrium</span></a>
+    <nav id="site-navigation" class="primary-nav" aria-label="{{t:nav.label}}" data-i18n-label="nav.label">
+      <a href="#browser" data-i18n="nav.browser">{{t:nav.browser}}</a>
+      <a href="#conversation" data-i18n="nav.assistant">{{t:nav.assistant}}</a>
+      <a href="#guides" data-i18n="nav.guide">{{t:nav.guide}}</a>
+      <a href="#availability" data-i18n="nav.availability">{{t:nav.availability}}</a>
+    </nav>
+    <div class="header-actions">
+      <div class="language" role="group" aria-label="{{t:nav.language}}" data-i18n-label="nav.language">
+        <button type="button" data-lang="en" lang="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang="fr" lang="fr" aria-pressed="false">FR</button>
+      </div>
+      {{source:header}}
+      <button class="menu-button" type="button" aria-controls="site-navigation" aria-expanded="false" aria-label="{{t:nav.menu}}"><span aria-hidden="true">☰</span></button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <section class="hero wrap" aria-labelledby="product-name">
+    <div class="hero-copy">
+      <p class="eyebrow status" data-i18n="hero.status">{{t:hero.status}}</p>
+      <h1 id="product-name"><img src="{{asset:urium-logo}}" alt="" width="64" height="64">CyUrium</h1>
+      <h2 class="hero-lead" data-i18n="hero.title">{{t:hero.title}}</h2>
+      <p class="lead" data-i18n="hero.body">{{t:hero.body}}</p>
+      <div class="actions">
+        <a class="button primary" href="#browser"><span data-i18n="hero.explore">{{t:hero.explore}}</span><span aria-hidden="true">↗</span></a>
+        <a class="text-link" href="{{doc:guide}}" data-doc="guide" data-i18n="hero.guide">{{t:hero.guide}}</a>
+      </div>
+      <p class="fineprint" data-i18n="hero.note">{{t:hero.note}}</p>
+    </div>
+    <div class="hero-art">{{shot:home}}<p class="capture-note" data-i18n="hero.imageNote">{{t:hero.imageNote}}</p></div>
+  </section>
+  <div class="identity-strip wrap" aria-label="CyUrium">
+    <span data-i18n="strip.engine">{{t:strip.engine}}</span><span data-i18n="strip.interface">{{t:strip.interface}}</span><span data-i18n="strip.tabs">{{t:strip.tabs}}</span><a href="./legal/LICENSE.txt" data-i18n="strip.license">{{t:strip.license}}</a>
+  </div>
+  <section id="browser" class="section wrap">
+    <div class="section-heading two-column">
+      <div><p class="eyebrow" data-i18n="browser.kicker">{{t:browser.kicker}}</p><h2 data-i18n="browser.title">{{t:browser.title}}</h2></div>
+      <p class="section-intro" data-i18n="browser.body">{{t:browser.body}}</p>
+    </div>
+    <div class="workflow">{{workflow:steps}}</div>
+    <div class="tools-heading"><p class="eyebrow" data-i18n="tools.kicker">{{t:tools.kicker}}</p><h3 data-i18n="tools.title">{{t:tools.title}}</h3><p data-i18n="tools.body">{{t:tools.body}}</p></div>
+    <div class="tool-tabs" role="tablist" aria-label="{{t:tools.tabs}}" data-i18n-label="tools.tabs">
+      <button type="button" role="tab" id="tab-settings" data-tool="settings" aria-selected="true" aria-controls="panel-settings" tabindex="0" data-i18n="tools.settings">{{t:tools.settings}}</button>
+      <button type="button" role="tab" id="tab-bookmarks" data-tool="bookmarks" aria-selected="false" aria-controls="panel-bookmarks" tabindex="-1" data-i18n="tools.bookmarks">{{t:tools.bookmarks}}</button>
+    </div>
+    <div id="panel-settings" class="tool-panel" role="tabpanel" aria-labelledby="tab-settings" tabindex="0">
+      {{shot:settings}}<div class="tool-copy"><span class="detail-index" aria-hidden="true">01</span><h3 data-i18n="tools.settings.title">{{t:tools.settings.title}}</h3><p data-i18n="tools.settings.body">{{t:tools.settings.body}}</p></div>
+    </div>
+    <div id="panel-bookmarks" class="tool-panel" role="tabpanel" aria-labelledby="tab-bookmarks" tabindex="0" hidden>
+      {{shot:bookmarks}}<div class="tool-copy"><span class="detail-index" aria-hidden="true">02</span><h3 data-i18n="tools.bookmarks.title">{{t:tools.bookmarks.title}}</h3><p data-i18n="tools.bookmarks.body">{{t:tools.bookmarks.body}}</p></div>
+    </div>
+  </section>
+  <section id="conversation" class="section tinted">
+    <div class="wrap">
+      <div class="section-heading assistant-heading"><p class="eyebrow" data-i18n="assistant.kicker">{{t:assistant.kicker}}</p><h2 data-i18n="assistant.title">{{t:assistant.title}}</h2><p class="section-intro" data-i18n="assistant.body">{{t:assistant.body}}</p></div>
+      <div class="assistant-layout">{{shot:assistant}}<div class="assistant-details"><div><h3 data-i18n="assistant.providers">{{t:assistant.providers}}</h3><p data-i18n="assistant.providersBody">{{t:assistant.providersBody}}</p></div><div><h3 data-i18n="assistant.access">{{t:assistant.access}}</h3><p data-i18n="assistant.accessBody">{{t:assistant.accessBody}}</p></div><p class="fineprint" data-i18n="assistant.limit">{{t:assistant.limit}}</p><a class="text-link" href="{{doc:conversation}}" data-doc="conversation" data-i18n="assistant.guide">{{t:assistant.guide}}</a></div></div>
+    </div>
+  </section>
+  <section id="essentials" class="section wrap">
+    <div class="section-heading"><p class="eyebrow" data-i18n="privacy.kicker">{{t:privacy.kicker}}</p><h2 data-i18n="privacy.title">{{t:privacy.title}}</h2></div>
+    <div class="essentials">{{essentials:items}}</div>
+  </section>
+  <section id="guides" class="section guide-section">
+    <div class="wrap guide-layout"><div><p class="eyebrow" data-i18n="guide.kicker">{{t:guide.kicker}}</p><h2 data-i18n="guide.title">{{t:guide.title}}</h2><p class="section-intro" data-i18n="guide.body">{{t:guide.body}}</p></div><div class="guide-actions"><a class="button primary" href="{{doc:guide}}" data-doc="guide"><span data-i18n="guide.readme">{{t:guide.readme}}</span><span aria-hidden="true">↗</span></a><a class="text-link" href="{{doc:version}}" data-doc="version" data-i18n="guide.versions">{{t:guide.versions}}</a><p class="fineprint" data-i18n="guide.note">{{t:guide.note}}</p></div></div>
+  </section>
+  <section id="availability" class="section wrap">
+    <div class="section-heading"><p class="eyebrow" data-i18n="availability.kicker">{{t:availability.kicker}}</p><h2 data-i18n="availability.title">{{t:availability.title}}</h2><p class="section-intro" data-i18n="availability.body">{{t:availability.body}}</p></div>
+    <div class="platforms">{{platforms:items}}</div>
+    <div class="availability-tail"><div class="actions"><a class="button primary" href="{{doc:build}}" data-doc="build" data-i18n="availability.build">{{t:availability.build}}</a><a class="text-link" href="{{doc:version}}" data-doc="version" data-i18n="availability.limits">{{t:availability.limits}}</a></div><p class="fineprint" data-i18n="availability.updates">{{t:availability.updates}}</p></div>
+  </section>
+  <section class="section faq tinted"><div class="wrap faq-layout"><h2 data-i18n="faq.title">{{t:faq.title}}</h2><div>{{faq:items}}</div></div></section>
+</main>
+<footer class="site-footer wrap"><div><a class="brand" href="#main"><img src="{{asset:urium-logo}}" width="30" height="30" alt=""><span>CyUrium</span></a><p data-i18n="footer.line">{{t:footer.line}}</p></div><nav aria-label="CyUrium"><a href="{{doc:guide}}" data-doc="guide" data-i18n="footer.guide">{{t:footer.guide}}</a><a href="./legal/LICENSE.txt" data-i18n="footer.license">{{t:footer.license}}</a><a href="./guides/THIRD_PARTY_NOTICES.html" data-i18n="footer.notices">{{t:footer.notices}}</a>{{source:footer}}</nav><span class="fineprint">© 2026 Cyberalien</span></footer>
+<dialog class="image-viewer" aria-labelledby="viewer-title">
+  <div class="viewer-toolbar"><h2 id="viewer-title" data-i18n="viewer.title">{{t:viewer.title}}</h2><div class="viewer-controls"><button type="button" class="viewer-zoom" aria-pressed="false">{{t:viewer.zoom}}</button><button type="button" class="viewer-close" data-i18n-label="viewer.close" aria-label="{{t:viewer.close}}"><span data-i18n="viewer.close">{{t:viewer.close}}</span><span aria-hidden="true">×</span></button></div></div>
+  <div class="viewer-stage"><img alt="" id="viewer-image"></div>
+  <div class="viewer-bottom"><div><p id="viewer-caption"></p><p id="viewer-position" class="fineprint" aria-live="polite"></p></div><div class="viewer-navigation"><button type="button" data-previous aria-label="{{t:viewer.previous}}" data-i18n-label="viewer.previous">←</button><button type="button" data-next aria-label="{{t:viewer.next}}" data-i18n-label="viewer.next">→</button></div></div>
+</dialog>
+<script id="site-data" type="application/json">{{data:json}}</script>
+</body>
+</html>

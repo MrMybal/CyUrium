@@ -15,6 +15,7 @@ see `LICENSE` and `NOTICE`. The following components retain their own licences.
 | CyToolsCore 0.10.1 | https://github.com/MrMybal/CyToolsCore | MIT; `LICENCES/CyToolsCore-MIT.txt` |
 | CyUEMCPSDK 0.1.8 provider snapshot | https://github.com/MrMybal/CyUEMCPSDK | MIT; `LICENCES/CyUEMCPSDK-MIT.txt` |
 | Embedded Python and MCP/SDK dependencies | Pinned by `sdk/runtime.lock.json` and `sdk/requirements.lock.json` | Original notices included in `LICENCES/SDK/` in the package |
+| markdown-it-py 4.2.0 / mdurl 0.1.2 | https://github.com/executablebooks/markdown-it-py and https://github.com/executablebooks/mdurl | MIT; build-time showcase HTML export only, not an application or site runtime dependency |
 | Roboto Medium | Dear ImGui's `misc/fonts/Roboto-Medium.ttf` | Apache 2.0 |
 
 The original licenses are copied beside the executable in `licenses/` and

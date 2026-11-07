@@ -169,6 +169,21 @@ signed packages or distributing corresponding source.
 
 </details>
 
+### Local showcase
+
+Build the complete English/French showcase, with local captures and HTML project guides:
+
+```sh
+python -m pip install -r tools/requirements-showcase.txt
+python tools/build_showcase.py
+python -m http.server 8767 --bind 127.0.0.1 --directory dist
+```
+
+Open `http://127.0.0.1:8767/website/index.html`. See the
+[showcase build and preview guide](website/README.md). The generated site can
+also be copied as a complete folder; no hosting service is required.
+
+
 ---
 
 ## License
@@ -192,6 +207,7 @@ Third-party components retain their own terms.
 | [CPython 3.14.10](https://www.python.org/downloads/release/python-31410/) | [PSF and component notices](https://docs.python.org/3/license.html) | Private Windows SDK runtime; full text included in `LICENCES/SDK/Python.txt` in the package. |
 | [MCP Python SDK 1.30.0](https://github.com/modelcontextprotocol/python-sdk) | [MIT](https://github.com/modelcontextprotocol/python-sdk/blob/main/LICENSE) | External MCP transport; enabled separately from chat. |
 | [cryptography](https://github.com/pyca/cryptography) | [Apache-2.0 OR BSD-3-Clause](https://github.com/pyca/cryptography/blob/main/LICENSE) and bundled notices | Python SDK dependency and maintainer-only package signing tool. |
+| [markdown-it-py 4.2.0](https://github.com/executablebooks/markdown-it-py) / [mdurl 0.1.2](https://github.com/executablebooks/mdurl) | [MIT](https://github.com/executablebooks/markdown-it-py/blob/master/LICENSE) / [MIT](https://github.com/executablebooks/mdurl/blob/master/LICENSE) | Build-time showcase guide export only; neither runs in the static site or browser application. |
 | [Roboto Medium](https://github.com/ocornut/imgui/tree/v1.92.5-docking/misc/fonts) | [Apache-2.0](assets/Roboto-LICENSE.txt) | Bundled interface font. |
 
 This table indexes the main components. Keep the complete

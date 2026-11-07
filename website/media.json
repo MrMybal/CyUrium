@@ -1,0 +1,6 @@
+[
+  {"id":"home","file":"home.webp","width":1440,"height":900,"alt":"hero.alt","caption":"hero.caption"},
+  {"id":"settings","file":"settings.webp","width":1440,"height":900,"alt":"tools.settings.alt","caption":"tools.settings.caption"},
+  {"id":"bookmarks","file":"bookmarks.webp","width":1440,"height":900,"alt":"tools.bookmarks.alt","caption":"tools.bookmarks.caption"},
+  {"id":"assistant","file":"assistant.webp","width":1360,"height":880,"alt":"assistant.alt","caption":"assistant.caption"}
+]

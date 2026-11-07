@@ -181,6 +181,21 @@ paquets signés ou de distribuer les sources correspondantes.
 
 </details>
 
+### Présentation locale
+
+Compiler la présentation complète anglais/français, avec captures locales et guides HTML :
+
+```sh
+python -m pip install -r tools/requirements-showcase.txt
+python tools/build_showcase.py
+python -m http.server 8767 --bind 127.0.0.1 --directory dist
+```
+
+Ouvrir `http://127.0.0.1:8767/website/index.html?lang=fr`. Consulter le
+[guide de compilation et d’aperçu du showcase (anglais)](website/README.md).
+Le site généré se copie aussi comme un dossier complet, sans service d’hébergement.
+
+
 ---
 
 ## Licence
@@ -204,6 +219,7 @@ utilisent la [GNU GPL version 3 uniquement](LICENSE), selon le périmètre de
 | [CPython 3.14.10](https://www.python.org/downloads/release/python-31410/) | [PSF et notices des composants](https://docs.python.org/3/license.html) | Runtime SDK privé Windows ; texte intégral dans `LICENCES/SDK/Python.txt` du paquet. |
 | [MCP Python SDK 1.30.0](https://github.com/modelcontextprotocol/python-sdk) | [MIT](https://github.com/modelcontextprotocol/python-sdk/blob/main/LICENSE) | Transport MCP externe, activé séparément de la conversation. |
 | [cryptography](https://github.com/pyca/cryptography) | [Apache-2.0 OR BSD-3-Clause](https://github.com/pyca/cryptography/blob/main/LICENSE) et notices embarquées | Dépendance du SDK Python et outil de signature réservé au mainteneur. |
+| [markdown-it-py 4.2.0](https://github.com/executablebooks/markdown-it-py) / [mdurl 0.1.2](https://github.com/executablebooks/mdurl) | [MIT](https://github.com/executablebooks/markdown-it-py/blob/master/LICENSE) / [MIT](https://github.com/executablebooks/mdurl/blob/master/LICENSE) | Export des guides lors de la compilation du showcase uniquement ; aucun des deux ne s’exécute dans le site statique ou le navigateur. |
 | [Roboto Medium](https://github.com/ocornut/imgui/tree/v1.92.5-docking/misc/fonts) | [Apache-2.0](assets/Roboto-LICENSE.txt) | Police d’interface embarquée. |
 
 Ce tableau est un index des composants principaux. Conserver les
