@@ -5,6 +5,9 @@ keyboard-accessible image enlargement, application-view tabs and HTML exports
 of the project's maintained guides. English is the default; use `?lang=fr` for
 French. Language switching keeps the current chapter and unrelated URL parameters.
 
+**Live showcase:** [English](https://mrmybal.github.io/CyUrium/) ·
+[Français](https://mrmybal.github.io/CyUrium/?lang=fr).
+
 ## Build
 
 From the CyUrium checkout, with Python 3.11 or newer:
@@ -78,5 +81,13 @@ To recheck the generated artifact:
 python tools/build_showcase.py --verify-only
 ```
 
-Building and previewing create no deployment. No hosting workflow is installed.
-Publishing the generated artifact or enabling a host is a separate operation.
+## GitHub Pages
+
+The [Pages workflow](https://github.com/MrMybal/CyUrium/blob/main/.github/workflows/pages.yml) builds and verifies the site
+on every push to `main`, then publishes only `dist/website/` to GitHub Pages.
+It can also be started manually from the repository's Actions tab.
+The repository's Pages publishing source is **GitHub Actions**.
+
+The build uses the same commands as the local preview. Deployments use GitHub's
+Pages artifact and short-lived workflow identity; no personal deployment token
+is stored in the repository. Local build and preview commands do not deploy.

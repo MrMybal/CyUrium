@@ -2,7 +2,7 @@
   <tr>
     <td width="300" align="left" valign="top">
       <a href="https://github.com/MrMybal/CyUrium">Dépôt</a><br>
-      <a href="website/README.md">Showcase · compilation et aperçu</a><br>
+      <a href="https://mrmybal.github.io/CyUrium/?lang=fr">Site de présentation</a><br>
       <a href="docs/architecture.md">Architecture</a><br>
       <a href="docs/sdk.md">Guide SDK / MCP</a><br><br>
       <sub>README</sub><br>
@@ -34,10 +34,10 @@ CyVR_Urium et un thème brun et ambre.
 
 [![Interface sombre de CyUrium avec son logo ambré, la barre d’adresse, les favoris et la recherche du nouvel onglet](docs/screenshots/dark.png)](docs/screenshots/dark.png)
 
-Découvrez le [showcase anglais/français](website/README.md) avec ses captures de
-l’application, sa galerie interactive et ses guides HTML locaux. Suivez les
-instructions de compilation et d’aperçu pour l’ouvrir localement ou copier
-l’intégralité du site généré.
+Découvrez le [showcase anglais/français](https://mrmybal.github.io/CyUrium/?lang=fr)
+avec ses captures de l’application, sa galerie interactive et ses guides HTML.
+Le [guide de compilation et d’aperçu (anglais)](website/README.md) explique aussi
+comment l’ouvrir localement.
 
 ## À propos de CyUrium
 
@@ -189,6 +189,9 @@ paquets signés ou de distribuer les sources correspondantes.
 
 ### Présentation locale
 
+Le showcase est [disponible sur GitHub Pages](https://mrmybal.github.io/CyUrium/?lang=fr)
+et se reconstruit automatiquement à chaque modification de `main`.
+
 Compiler la présentation complète anglais/français, avec captures locales et guides HTML :
 
 ```sh
@@ -237,5 +240,5 @@ Le [verrou du SDK](sdk/requirements.lock.json) recense les autres dépendances P
 
 - [Dépôt des sources](https://github.com/MrMybal/CyUrium) · [Suivi des problèmes](https://github.com/MrMybal/CyUrium/issues).
 - [Notes de version](VERSION.fr.md) · [Releases](https://github.com/MrMybal/CyUrium/releases).
-- [Showcase : compilation et aperçu local (anglais)](website/README.md).
+- [Showcase en ligne](https://mrmybal.github.io/CyUrium/?lang=fr) · [Compilation et aperçu local (anglais)](website/README.md).
 - [Architecture](docs/architecture.md), [SDK / MCP](docs/sdk.md) et [préparation des versions](docs/releases.md) — guides techniques en français.
