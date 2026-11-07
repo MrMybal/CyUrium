@@ -14,6 +14,7 @@
     <td width="300" align="right" valign="top">
       <p><sub>Licence de l’application</sub><br><a href="LICENSE"><strong>GPL-3.0-only</strong></a></p>
       <p><sub>Version</sub><br><a href="VERSION.fr.md"><strong>0.3.0</strong></a><br><strong>ALPHA</strong></p>
+      <p><a href="https://github.com/MrMybal/CyUrium/releases/download/v0.3.0-alpha.1/CyUrium-0.3.0-windows-x64-setup.exe"><strong>Télécharger pour Windows x64</strong></a><br><a href="https://github.com/MrMybal/CyUrium/releases/tag/v0.3.0-alpha.1">ZIP portable · sources</a></p>
     </td>
   </tr>
 </table>
@@ -111,8 +112,9 @@ Sur macOS, utiliser Cmd à la place de Ctrl.
 
 ## Installation
 
-**Aucun téléchargement de l’application empaquetée n’est encore publié.**
-Compilez les sources avec les prérequis ci-dessous. État actuel des plateformes :
+**[Télécharger l’installateur Windows x64](https://github.com/MrMybal/CyUrium/releases/download/v0.3.0-alpha.1/CyUrium-0.3.0-windows-x64-setup.exe)** ·
+[ZIP portable et sources correspondantes](https://github.com/MrMybal/CyUrium/releases/tag/v0.3.0-alpha.1).
+Il s’agit de la préversion **0.3.0 Alpha 1**. État actuel des plateformes :
 
 | Plateforme | Disponibilité actuelle |
 | --- | --- |
@@ -120,10 +122,14 @@ Compilez les sources avec les prérequis ci-dessous. État actuel des plateforme
 | macOS | Cible de compilation de l’interface de bureau ; intégration native Gecko/SDK à porter. |
 | Linux | Cible de compilation de l’interface de bureau ; intégration native Gecko/SDK à porter. X11/XWayland nécessaire au placement des fenêtres. |
 
-1. Récupérez les sources et installez les outils Windows indiqués ci-dessous.
-2. Lancez **Start-CyUrium.cmd** depuis les sources. Il compile l’application si elle
-   manque, ou ouvre le paquet existant dans `dist/windows/CyUrium/`.
-3. Conservez tout le paquet, notamment `engine/`, `sdk/`, les ressources et les notices.
+1. Lancez l’installateur, choisissez français ou anglais, puis ouvrez CyUrium depuis le menu Démarrer.
+   L’installation se fait pour le compte courant dans `%LOCALAPPDATA%\Programs\CyUrium`, sans droits administrateur.
+2. Pour l’édition portable, extrayez tout le ZIP dans un dossier accessible en écriture et lancez `CyUrium.exe`.
+   Conservez `engine/`, `sdk/`, les ressources et les notices à côté de l’exécutable.
+3. Désinstallez l’édition installée depuis les paramètres Windows. Le profil du navigateur est conservé.
+
+L’installateur alpha n’est pas signé avec Authenticode. Les mises à jour signées
+par le mainteneur restent à configurer ; les prochaines alphas s’installent manuellement.
 
 Le paquet Windows embarque Gecko et son Python privé : son exécution ne demande
 ni Firefox installé ni Python système. Un pilote GPU compatible est nécessaire.
@@ -229,6 +235,7 @@ utilisent la [GNU GPL version 3 uniquement](LICENSE), selon le périmètre de
 | [MCP Python SDK 1.30.0](https://github.com/modelcontextprotocol/python-sdk) | [MIT](https://github.com/modelcontextprotocol/python-sdk/blob/main/LICENSE) | Transport MCP externe, activé séparément de la conversation. |
 | [cryptography](https://github.com/pyca/cryptography) | [Apache-2.0 OR BSD-3-Clause](https://github.com/pyca/cryptography/blob/main/LICENSE) et notices embarquées | Dépendance du SDK Python et outil de signature réservé au mainteneur. |
 | [markdown-it-py 4.2.0](https://github.com/executablebooks/markdown-it-py) / [mdurl 0.1.2](https://github.com/executablebooks/mdurl) | [MIT](https://github.com/executablebooks/markdown-it-py/blob/master/LICENSE) / [MIT](https://github.com/executablebooks/mdurl/blob/master/LICENSE) | Export des guides lors de la compilation du showcase uniquement ; aucun des deux ne s’exécute dans le site statique ou le navigateur. |
+| [Inno Setup 7.1.1](https://github.com/jrsoftware/issrc/tree/is-7_1_1) | [Licence Inno Setup](LICENCES/Inno-Setup.txt) | Installateur et désinstalleur Windows. |
 | [Roboto Medium](https://github.com/ocornut/imgui/tree/v1.92.5-docking/misc/fonts) | [Apache-2.0](assets/Roboto-LICENSE.txt) | Police d’interface embarquée. |
 
 Ce tableau est un index des composants principaux. Conserver les

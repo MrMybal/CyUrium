@@ -441,7 +441,7 @@ int main(int argc,char** argv) {
                 }else if(assistant_phase==2&&!state["conversations"].empty()){
                     auto& chat=state["conversations"].back();assistant_streamed|=!chat.value("partial","").empty();
                     if(!chat.value("error","").empty())throw std::runtime_error(chat.value("error",""));
-                    if(!chat.value("busy",false)&&chat.value("messages",nlohmann::json::array()).size()==2&&initial.active().web.connected&&!initial.active().web.loading){
+                    if(!chat.value("busy",false)&&chat.value("messages",nlohmann::json::array()).size()==2&&web_engine&&web_engine->ready()&&initial.active().web.connected&&!initial.active().web.loading&&initial.active().web.url==config.url){
                         s.assistant_commands.push_back({{"action","attach"},{"conversationId",chat["id"]},{"tabId",initial.selected},{"url",config.url}});assistant_phase=3;
                     }
                 }else if(assistant_phase==3&&state.value("attachment",nlohmann::json()).is_object()){

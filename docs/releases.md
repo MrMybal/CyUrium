@@ -1,5 +1,37 @@
 # Distribution depuis GitHub Releases
 
+## Alpha Windows installable
+
+La préversion [0.3.0 Alpha 1](https://github.com/MrMybal/CyUrium/releases/tag/v0.3.0-alpha.1)
+est distribuée dans le dépôt public du projet : installateur Windows x64,
+ZIP portable, archive des sources correspondantes et `SHA256SUMS`.
+L’installateur Inno Setup propose français/anglais, installe pour le compte
+courant sans élévation et crée les raccourcis et la désinstallation Windows.
+La désinstallation conserve le profil situé hors du dossier de l’application.
+
+Cette alpha utilise des téléchargements manuels. L’installateur ne porte pas de
+signature Authenticode et aucun manifeste de mise à jour automatique n’est publié.
+La clé de publication différée n’est pas générée par la préparation de l’installateur.
+
+Après compilation et tests, avec le compilateur officiel Inno Setup 7 :
+
+```powershell
+python tools/build.py
+python -m unittest discover -s tests -p test_windows_package.py
+python tools/package_windows.py --iscc 'C:\Program Files\Inno Setup 7\ISCC.exe' --output dist/releases/alpha
+python tools/package_source.py --output dist/releases/alpha
+```
+
+Le compilateur utilisé pour Alpha 1 est verrouillé dans
+`packaging/windows/compiler.lock.json`. Vérifier son empreinte et sa signature
+officielle avant son exécution. Le script de paquet crée un staging neuf, conserve
+uniquement les fichiers Gecko approuvés et contrôle les profils et chemins locaux.
+Il refuse d’écraser un jeu de paquets existant. L’archive des sources provient du
+commit Git et ajoute les archives officielles verrouillées de SDL, Dear ImGui et
+uBlock Origin. Les bibliothèques déjà vendues dans le dépôt restent incluses.
+
+## Canal de mises à jour signées
+
 La distribution utilise un **dépôt public dédié aux Releases**. Le dépôt du code
 peut rester privé. Aucun compte GitHub, jeton ou outil Python n’est nécessaire
 sur les machines qui exécutent le navigateur. Le nom du dépôt public n’est pas
@@ -121,9 +153,8 @@ Une Release existante n’est pas écrasée. La clé privée est écrite dans le
 temporaire du runner pour la signature, puis supprimée ; elle n’entre ni dans
 l’artefact ni dans le paquet du navigateur.
 
-Le workflow n’a pas été exécuté sur GitHub dans cette session : le dépôt public,
-les variables et les secrets restent à configurer. Ses commandes de compilation,
-signature, transport et remplacement sont vérifiées localement.
+Le workflow signé exige le dépôt de destination, les variables et les secrets
+indiqués ci-dessus. Il est indépendant de la publication manuelle de l’alpha.
 
 `python tools/check_gecko.py` compare le verrou avec la version ESR publiée par
 Mozilla, sans téléchargement de moteur ni installation. Le workflow refuse de
@@ -147,7 +178,7 @@ avec les seuls binaires ne constitue pas cette archive de sources.
 Conserver les licences et avis amont : Gecko reste sous MPL et ses licences
 associées, uBlock Origin sous sa GPL, les composants MIT sous MIT. Les profils,
 historiques, jetons et clés privées ne font pas partie des sources à publier.
-Cette modification ne publie aucun dépôt ni aucune Release.
+La publication de binaires conserve ces notices et les sources correspondantes.
 
 ```powershell
 python -m unittest discover -s tests -p test_release.py

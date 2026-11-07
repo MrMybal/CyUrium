@@ -4,9 +4,9 @@
 
 ## Disponibilité
 
-Ces notes décrivent la **version 0.3.0 des sources** et l’implémentation Windows
-de ce projet. Aucun paquet de l’application n’est encore publié dans les
-[Releases GitHub](https://github.com/MrMybal/CyUrium/releases).
+Ces notes décrivent **0.3.0 Alpha 1**, disponible en installateur Windows x64 et
+ZIP portable dans les [Releases GitHub](https://github.com/MrMybal/CyUrium/releases/tag/v0.3.0-alpha.1),
+avec les sources correspondantes et les empreintes SHA-256.
 Cette alpha est expérimentale et destinée aux essais et aux retours utilisateurs.
 
 Windows x64 héberge Gecko et le runtime privé conversation/SDK. macOS et Linux
@@ -40,7 +40,7 @@ web native reste à porter. Android/Meta Quest relève du projet distinct CyVR_U
 | CPython / MCP Python SDK | 3.14.10 / 1.30.0 | Dépendances privées du SDK Windows. |
 
 Ces versions proviennent de CMake et des verrous du moteur et du SDK. Elles
-décrivent les sources présentes ; aucun binaire n’est encore publié.
+décrivent les sources présentes et le paquet Windows Alpha 1.
 
 ## Limites documentées
 
@@ -64,9 +64,11 @@ décrivent les sources présentes ; aucun binaire n’est encore publié.
   configuré sont nécessaires. Les outils navigateur de Codex App Server utilisent
   un protocole expérimental de fonctions dynamiques qui exige une version compatible.
   Les autres connecteurs assurent la conversation ; la page active doit être jointe explicitement.
-- **Mises à jour** : aucun téléchargement n’est actuellement proposé. Le dépôt
-  public des Releases et la véritable clé du mainteneur ne sont pas renseignés ;
+- **Mises à jour** : l’alpha utilise les téléchargements manuels de l’installateur
+  ou du ZIP. Le canal automatique et la véritable clé du mainteneur ne sont pas renseignés ;
   rotation de clé et suffixes de préversion ne sont pas implémentés.
+- **Installateur** : Windows x64 uniquement, pour le compte courant, en français/anglais,
+  sans signature Authenticode. La désinstallation conserve le profil du navigateur.
 - **Performances** : les mesures de l’interface excluent les processus Gecko et
   la mémoire GPU. Aucun comparatif de navigation multiplateforme n’est annoncé.
 

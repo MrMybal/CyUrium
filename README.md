@@ -14,6 +14,7 @@
     <td width="300" align="right" valign="top">
       <p><sub>Application license</sub><br><a href="LICENSE"><strong>GPL-3.0-only</strong></a></p>
       <p><sub>Version</sub><br><a href="VERSION.md"><strong>0.3.0</strong></a><br><strong>ALPHA</strong></p>
+      <p><a href="https://github.com/MrMybal/CyUrium/releases/download/v0.3.0-alpha.1/CyUrium-0.3.0-windows-x64-setup.exe"><strong>Download for Windows x64</strong></a><br><a href="https://github.com/MrMybal/CyUrium/releases/tag/v0.3.0-alpha.1">Portable ZIP · sources</a></p>
     </td>
   </tr>
 </table>
@@ -101,8 +102,9 @@ Use Cmd instead of Ctrl on macOS.
 
 ## Installation
 
-**No packaged application download is published yet.** Build from source using
-the requirements below. The current platform status is:
+**[Download the Windows x64 installer](https://github.com/MrMybal/CyUrium/releases/download/v0.3.0-alpha.1/CyUrium-0.3.0-windows-x64-setup.exe)** ·
+[Portable ZIP and corresponding sources](https://github.com/MrMybal/CyUrium/releases/tag/v0.3.0-alpha.1).
+This is the **0.3.0 Alpha 1** preview. The current platform status is:
 
 | Platform | Current availability |
 | --- | --- |
@@ -110,10 +112,14 @@ the requirements below. The current platform status is:
 | macOS | Desktop interface build target; native Gecko/SDK integration pending. |
 | Linux | Desktop interface build target; native Gecko/SDK integration pending. X11/XWayland required for multi-window positioning. |
 
-1. Obtain the source and install the Windows build tools listed below.
-2. Run **Start-CyUrium.cmd** from the checkout. It builds the application when missing,
-   or opens the existing package in `dist/windows/CyUrium/`.
-3. Keep the complete package together, including `engine/`, `sdk/`, assets and notices.
+1. Run the installer, choose English or French, then launch CyUrium from the Start menu.
+   Installation is per-user in `%LOCALAPPDATA%\Programs\CyUrium`, without administrator access.
+2. For the portable edition, extract the entire ZIP to a writable folder and run `CyUrium.exe`.
+   Keep `engine/`, `sdk/`, assets and notices beside the executable.
+3. Uninstall the installed edition from Windows Settings. The browser profile is preserved.
+
+The alpha installer is not Authenticode-signed. Automatic publisher-signed updates
+remain unconfigured; install later alpha packages manually.
 
 The Windows package bundles Gecko and its private Python runtime: running it
 requires neither an installed Firefox nor system Python. A compatible GPU driver
@@ -216,6 +222,7 @@ Third-party components retain their own terms.
 | [MCP Python SDK 1.30.0](https://github.com/modelcontextprotocol/python-sdk) | [MIT](https://github.com/modelcontextprotocol/python-sdk/blob/main/LICENSE) | External MCP transport; enabled separately from chat. |
 | [cryptography](https://github.com/pyca/cryptography) | [Apache-2.0 OR BSD-3-Clause](https://github.com/pyca/cryptography/blob/main/LICENSE) and bundled notices | Python SDK dependency and maintainer-only package signing tool. |
 | [markdown-it-py 4.2.0](https://github.com/executablebooks/markdown-it-py) / [mdurl 0.1.2](https://github.com/executablebooks/mdurl) | [MIT](https://github.com/executablebooks/markdown-it-py/blob/master/LICENSE) / [MIT](https://github.com/executablebooks/mdurl/blob/master/LICENSE) | Build-time showcase guide export only; neither runs in the static site or browser application. |
+| [Inno Setup 7.1.1](https://github.com/jrsoftware/issrc/tree/is-7_1_1) | [Inno Setup license](LICENCES/Inno-Setup.txt) | Windows installer and uninstaller. |
 | [Roboto Medium](https://github.com/ocornut/imgui/tree/v1.92.5-docking/misc/fonts) | [Apache-2.0](assets/Roboto-LICENSE.txt) | Bundled interface font. |
 
 This table indexes the main components. Keep the complete

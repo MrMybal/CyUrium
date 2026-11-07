@@ -17,6 +17,7 @@ see `LICENSE` and `NOTICE`. The following components retain their own licences.
 | Embedded Python and MCP/SDK dependencies | Pinned by `sdk/runtime.lock.json` and `sdk/requirements.lock.json` | Original notices included in `LICENCES/SDK/` in the package |
 | markdown-it-py 4.2.0 / mdurl 0.1.2 | https://github.com/executablebooks/markdown-it-py and https://github.com/executablebooks/mdurl | MIT; build-time showcase HTML export only, not an application or site runtime dependency |
 | Roboto Medium | Dear ImGui's `misc/fonts/Roboto-Medium.ttf` | Apache 2.0 |
+| Inno Setup 7.1.1 | https://github.com/jrsoftware/issrc/tree/is-7_1_1 | Inno Setup license, preserved in `LICENCES/Inno-Setup.txt`; Windows installer/uninstaller only |
 
 The original licenses are copied beside the executable in `licenses/` and
 `assets/Roboto-LICENSE.txt`. CyUI's original license and source fingerprints

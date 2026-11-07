@@ -4,9 +4,9 @@
 
 ## Availability
 
-These notes describe the **0.3.0 source version** and the Windows implementation
-in this checkout. There is no published application package in
-[GitHub Releases](https://github.com/MrMybal/CyUrium/releases) yet.
+These notes describe **0.3.0 Alpha 1**, available as a Windows x64 installer and
+portable ZIP in [GitHub Releases](https://github.com/MrMybal/CyUrium/releases/tag/v0.3.0-alpha.1),
+alongside the corresponding sources and SHA-256 checksums.
 This alpha is experimental and intended for testing and feedback.
 
 Windows x64 hosts Gecko and the private conversation/SDK runtime. macOS and Linux
@@ -37,7 +37,7 @@ pending. Android/Meta Quest development belongs to the separate CyVR_Urium proje
 | CPython / MCP Python SDK | 3.14.10 / 1.30.0 | Private Windows SDK dependencies. |
 
 Versions come from CMake, the engine lockfiles and SDK lockfiles. They describe
-this source tree; no binary release has shipped yet.
+this source tree and the Windows Alpha 1 package.
 
 ## Documented limitations
 
@@ -59,8 +59,10 @@ this source tree; no binary release has shipped yet.
   are required. Codex App Server browser tools use an experimental dynamic-tool
   protocol and need a compatible installed version. Other connectors support chat;
   active-page content must be attached explicitly.
-- **Updates:** no download is currently offered. The public Releases destination and
-  real publisher key are unset; key rotation and prerelease version suffixes are not implemented.
+- **Updates:** the alpha uses manual installer/ZIP downloads. The automatic-update
+  destination and real publisher key are unset; key rotation and prerelease version suffixes are not implemented.
+- **Installer:** Windows x64 only, per-user, English/French and not Authenticode-signed.
+  Uninstallation preserves the browser profile.
 - **Performance:** interface-only metrics exclude Gecko processes and GPU memory.
   No cross-platform browsing benchmark is claimed.
 
