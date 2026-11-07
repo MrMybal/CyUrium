@@ -2,6 +2,7 @@
   <tr>
     <td width="300" align="left" valign="top">
       <a href="https://github.com/MrMybal/CyUrium">Repository</a><br>
+      <a href="website/README.md">Showcase · build &amp; preview</a><br>
       <a href="docs/architecture.md">Architecture</a><br>
       <a href="docs/sdk.md">SDK / MCP guide (French)</a><br><br>
       <sub>README</sub><br>
@@ -30,6 +31,10 @@ Dear ImGui and SDL3 GPU, with CyVR_Urium's original logo and brown and amber the
 > Read the [version notes and known limitations](VERSION.md).
 
 [![CyUrium's dark interface, with its amber logo, address bar, bookmarks and new-tab search](docs/screenshots/dark.png)](docs/screenshots/dark.png)
+
+Explore the [English/French showcase](website/README.md) for application captures,
+an interactive gallery and local HTML guides. Follow its build and preview
+instructions to open it locally or copy the complete generated site.
 
 ## About CyUrium
 
@@ -219,4 +224,5 @@ The [SDK lockfile](sdk/requirements.lock.json) records additional Python depende
 
 - [Source repository](https://github.com/MrMybal/CyUrium) · [Issue tracker](https://github.com/MrMybal/CyUrium/issues).
 - [Version notes](VERSION.md) · [Releases](https://github.com/MrMybal/CyUrium/releases).
+- [Showcase: build and local preview](website/README.md).
 - [Architecture](docs/architecture.md), [SDK / MCP](docs/sdk.md) and [release preparation](docs/releases.md) — technical guides currently in French.

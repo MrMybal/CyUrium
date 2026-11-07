@@ -22,7 +22,7 @@ The optional GitHub source links are supplemental external destinations.
 
 The generated page uses relative paths and can be opened directly, or served
 from any static project subpath. Direct `file://` opening must be checked in the
-target browser; this task's in-app browser only permits HTTP/HTTPS navigation.
+target browser; the HTTP preview below provides a loopback alternative.
 No browser or operating-system fullscreen API is used for image enlargement.
 The viewer initially fits the full frame; **Actual size** enables native-resolution
 reading with scrolling inside the image area, while its close control stays reachable.
