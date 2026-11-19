@@ -23,9 +23,8 @@ file or component explicitly identifies a different licence.
 The Gecko runtime and Mozilla resources retain their MPL 2.0 and other
 upstream licences. Third-party libraries, SDK packages, provider snapshots,
 fonts and the separate uBlock Origin extension retain their own licences.
-In particular, third_party/, sdk/vendor/, sdk/packages/ and the embedded
-Python runtime are not relicensed by this notice. The original MIT licences
-of CyUI, CyToolsCore and CyUEMCPSDK remain in effect for those components.
+In particular, third_party/ is not relicensed by this notice. The original
+MIT licences of CyUI, CyMCPSDK and its vendored components remain in effect.
 
 See THIRD_PARTY_NOTICES.md, licenses/, LICENCES/, and the notices shipped
 with engine/ for the relevant copyright notices and licence texts.

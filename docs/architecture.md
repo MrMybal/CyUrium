@@ -23,8 +23,10 @@ Aucun Firefox installé ni moteur Chromium/WebView n’est requis.
 | `src/web_engine.*` | Cycle du runtime, IPC authentifié, état web et surfaces natives Windows |
 | `src/browser_sdk.*` | Compagnon SDK possédé, requêtes appliquées sur le thread UI, niveaux d’accès |
 | `src/browser_assistant_ui.cpp` | Panneau natif de conversations à côté de la page |
-| `sdk/` | Contrat CyTools, Runtime/MCP officiel embarqué et fournisseurs portables existants |
-| `tools/prepare_sdk.py` | Runtime privé et dépendances vérifiés par SHA-256, licences de distribution |
+| `sdk/` | Catalogue métier partagé et verrou du snapshot CyMCPSDK |
+| `src/automation_*` | Registre, CLI/MCP natif, Conversation, ressources et jobs durables |
+| `third_party/cymcpsdk/` | Sources natives inchangées, compilées dans le compagnon |
+| `tools/prepare_sdk.py` | Vérification des sources natives et copie du compagnon et de ses licences |
 | `engine/host/` | Hôte Gecko privilégié minimal, fenêtres de contenu et acteurs du moteur |
 | `tools/prepare_gecko.py` | Runtime ESR officiel vérifié et application Gecko dédiée |
 | `src/browser_theme.*` | Palettes navigateur et adaptation des rôles CyUI |
@@ -92,7 +94,7 @@ se composent indépendamment de l’interface.
 
 ## Gecko desktop sous Windows
 
-Le runtime est Gecko ESR **153.6.0**, extrait de la distribution officielle
+Le runtime est Gecko ESR **153.7.0**, extrait de la distribution officielle
 Firefox ESR Windows x64, vérifiée par SHA-512 dans `engine/runtime.lock.json`.
 Son lanceur Mozilla (`engine/firefox.exe`) démarre `engine/app/application.ini`
 avec `-app`, notre identifiant et notre profil. Les ressources de la plateforme

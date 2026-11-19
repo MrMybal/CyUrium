@@ -91,7 +91,7 @@ void BrowserUi::service_settings(int category,float x,float y,float width,float 
         if(ImGui::Button("Réinitialiser toutes les permissions"))s.request("permissions-clear");
     }else{
         ImGui::TextUnformatted("Automatisation · MCP / SDK");
-        if(ImGui::Checkbox("Activer le service local CyToolsCore",&s.sdk_enabled))actions_.save=true;
+        if(ImGui::Checkbox("Activer le service local CyMCPSDK",&s.sdk_enabled))actions_.save=true;
         ImGui::BeginDisabled(!s.sdk_enabled);
         if(ImGui::Checkbox("Autoriser le contrôle des onglets et des pages",&s.sdk_control))actions_.save=true;
         ImGui::EndDisabled();

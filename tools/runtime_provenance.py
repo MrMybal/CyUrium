@@ -90,10 +90,10 @@ def stage_package(source, destination, archive_hash):
         raise RuntimeError('Staging needs a new, separate output directory')
     data = verify_runtime(source / 'engine', archive_hash, allow_foreign=True)
     for entry in source.iterdir():
-        if entry.name not in ('CyUrium.exe', 'assets', 'licenses', 'LICENCES', 'sdk', 'engine', 'package-files.json', 'LICENSE', 'NOTICE', 'THIRD_PARTY_NOTICES.md'):
+        if entry.name not in ('CyUrium.exe', 'CyUriumCLI.exe', 'assets', 'licenses', 'LICENCES', 'sdk', 'engine', 'package-files.json', 'LICENSE', 'NOTICE', 'THIRD_PARTY_NOTICES.md'):
             raise RuntimeError('Unexpected browser package entry: ' + entry.name)
     destination.mkdir(parents=True)
-    for name in ('CyUrium.exe', 'assets', 'licenses', 'LICENCES', 'sdk', 'LICENSE', 'NOTICE', 'THIRD_PARTY_NOTICES.md'):
+    for name in ('CyUrium.exe', 'CyUriumCLI.exe', 'assets', 'licenses', 'LICENCES', 'sdk', 'LICENSE', 'NOTICE', 'THIRD_PARTY_NOTICES.md'):
         path = source / name
         if not path.exists():
             continue

@@ -32,6 +32,9 @@ private:
     std::array<char,257> assistant_model_{};
     std::array<char,2049> assistant_endpoint_{},assistant_executable_{};
     std::array<char,129> assistant_key_env_{};
+    nlohmann::json assistant_options_value_=nlohmann::json::object();
+    std::string assistant_options_revision_;
+    std::array<char,16385> assistant_remote_config_{};
     int settings_category_ = 0;
     std::array<char,4096> extension_path_{};
     std::array<char,2048> permission_origin_{};

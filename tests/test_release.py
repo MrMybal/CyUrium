@@ -50,8 +50,9 @@ class ReleaseTests(unittest.TestCase):
         shutil.copy2(self.root / 'assets/update-channel.json', source / 'assets/update-channel.json')
         (source / 'CyUrium.exe').write_bytes(b'Fixture executable, never executed')
         (source / 'assets/branding/urium-logo.rgba').write_bytes(b'Fixture branding')
-        (source/'sdk').mkdir();(source/'sdk/service.py').write_text('# SDK packaging fixture',encoding='utf-8')
-        (source/'LICENCES').mkdir();(source/'LICENCES/CyToolsCore-MIT.txt').write_text('Fixture notice',encoding='utf-8')
+        (source/'sdk').mkdir();(source/'sdk/cymcpsdk.lock.json').write_text('{}',encoding='utf-8')
+        (source/'CyUriumCLI.exe').write_bytes(b'Native console fixture, never executed')
+        (source/'LICENCES').mkdir();(source/'LICENCES/SOURCES.txt').write_text('CyMCPSDK MIT',encoding='utf-8')
         for name in ('LICENSE','NOTICE','THIRD_PARTY_NOTICES.md'):
             shutil.copy2(ROOT/name,source/name)
         for name in ('firefox.exe','xul.dll','app/omni.ja'):(source/'engine'/name).write_bytes(b'Fixture runtime, never executed')

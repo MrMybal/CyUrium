@@ -1,85 +1,65 @@
-# CyUrium 0.3.0 — Alpha
+# CyUrium 0.4.0 — Alpha 1
 
 [README](README.fr.md) · [English](VERSION.md) · [Suivi des problèmes](https://github.com/MrMybal/CyUrium/issues)
 
 ## Disponibilité
 
-Ces notes décrivent **0.3.0 Alpha 1**, disponible en installateur Windows x64 et
-ZIP portable dans les [Releases GitHub](https://github.com/MrMybal/CyUrium/releases/tag/v0.3.0-alpha.1),
-avec les sources correspondantes et les empreintes SHA-256.
-Cette alpha est expérimentale et destinée aux essais et aux retours utilisateurs.
+**0.4.0 Alpha 1** est un navigateur Windows x64 expérimental, destiné aux essais et aux retours utilisateurs.
+La [Release GitHub](https://github.com/MrMybal/CyUrium/releases/tag/v0.4.0-alpha.1)
+propose un installateur par utilisateur, un ZIP portable, les sources correspondantes et les empreintes SHA-256.
+macOS et Linux conservent leurs cibles d’interface de bureau ; l’intégration Gecko native et l’exécution du SDK y restent à valider.
+Android et Meta Quest relèvent de CyVR_Urium.
 
-Windows x64 héberge Gecko et le runtime privé conversation/SDK. macOS et Linux
-disposent actuellement de cibles de compilation de l’interface ; leur intégration
-web native reste à porter. Android/Meta Quest relève du projet distinct CyVR_Urium.
+## Changements depuis 0.3.0
 
-## Fonctions incluses
+- **CyMCPSDK 0.7.0 natif** remplace l’intégration CyToolsCore et son runtime Python.
+- `CyUriumCLI.exe` liste les opérations, décrit les schémas et pilote le vrai navigateur en JSON, avec les lectures compatibles du profil hors interface.
+- Chat, CLI et MCP externe utilisent un registre commun et les droits lecture/contrôle du navigateur. L’entrée existante `CyUrium.exe --mcp` est conservée.
+- Les conversations natives proposent réponses progressives, annulation, pièces jointes explicites, détection des fournisseurs/modèles et restauration des checkpoints. Historiques et longs messages sont paginés sans tronquer le transcript enregistré.
+- Les outils et ressources MCP distants sélectionnés explicitement sont utilisables dans le chat. Cache, notifications, découverte compacte, résultats par morceaux, disque temporaire, mesures techniques et fenêtre de contexte API sont réglables séparément.
+- Les jobs durables conservent leur résultat complet après redémarrage et expiration des références. Les anciens jobs s’importent avec le credential d’origine de leur propriétaire ; les actions interrompues ne sont pas rejouées.
+- Les grands messages interface/compagnon sont écrits progressivement sur le pipe non bloquant. L’appairage de CLI concurrents conserve une identité cliente commune.
+- Le moteur embarqué est mis à jour vers **Gecko ESR 153.7.0**, depuis la distribution officielle Mozilla.
 
-- Interface native inspirée de Chrome, thèmes clair/sombre, mise à l’échelle,
-  favoris et historique des adresses saisies.
-- Onglets web indépendants avec déplacement/réorganisation, détachement/rattachement
-  entre fenêtres natives et conservation du document, du formulaire et de l’historique.
-- Navigation Gecko HTML/JavaScript, téléchargements, extensions signées et uBlock Origin embarqué.
-- Permissions par origine, sauvegardes des sessions, restauration des champs sur option et récupération du moteur.
-- Panneau de conversation natif, connecteurs fournisseurs existants et accès MCP
-  activé séparément via CyToolsCore.
-- Rendu d’interface SDL_GPU et accélération Gecko/WebRender sous Windows.
-- Implémentation des mises à jour GitHub signées, vérification des fichiers et
-  retour à l’ancienne installation après échec du démarrage ; la clé de publication
-  et le dépôt dédié aux Releases restent à configurer.
+Favoris, préférences, onglets déplaçables, fenêtres indépendantes, permissions,
+téléchargements, extensions et uBlock Origin intégré restent disponibles.
 
 ## Composants verrouillés
 
 | Composant | Version | Rôle |
 | --- | --- | --- |
-| CyUrium | 0.3.0 · Alpha | Version des sources de l’application. |
-| Gecko | 153.6.0 ESR | Runtime web Windows. |
-| Dear ImGui / SDL | 1.92.5-docking / 3.2.28 | Interface native de bureau. |
+| CyUrium | 0.4.0 · Alpha 1 | Navigateur natif et compagnon console. |
+| Gecko | 153.7.0 ESR | Moteur web Windows. |
+| Dear ImGui / SDL | 1.92.5-docking / 3.2.28 | Interface et rendu GPU. |
 | uBlock Origin | 1.75.0 | Extension embarquée signée par Mozilla. |
-| CyToolsCore / CyUEMCPSDK | 0.10.1 / 0.1.8 | Runtime SDK et snapshot des fournisseurs. |
-| CPython / MCP Python SDK | 3.14.10 / 1.30.0 | Dépendances privées du SDK Windows. |
+| CyMCPSDK | 0.7.0, révision `791d4d7d7680213b282ec8529d248a10f8494d77` | Core, Platform, Http, MCP et AI compilés depuis les sources. |
 
-Ces versions proviennent de CMake et des verrous du moteur et du SDK. Elles
-décrivent les sources présentes et le paquet Windows Alpha 1.
+Les sources et archives exactes sont verrouillées dans `sdk/cymcpsdk.lock.json`,
+`engine/runtime.lock.json` et la configuration des dépendances natives.
+Le navigateur ne demande plus de runtime Python ; Python reste un outil de compilation et de tests.
 
 ## Limites documentées
 
-- **Plateformes** : Gecko, le compagnon SDK empaqueté et les mises à jour natives
-  restent limités à Windows. L’exécution macOS/Linux n’a pas été validée localement.
-  Le placement multifenêtre Linux exige X11/XWayland ; Wayland natif n’est pas pris en charge.
-- **Extensions** : certaines API dépendantes de l’interface Firefox restent à
-  adapter, dont des créations d’onglets/fenêtres, barres latérales et menus
-  contextuels. Toutes les extensions Firefox ne sont pas compatibles.
-- **Compatibilité web** : plein écran HTML/vidéo, accessibilité, diversité des sites
-  et périphériques de capture demandent encore une validation élargie. La présence
-  d’un gestionnaire de permissions ne garantit pas la compatibilité complète.
-- **Confidentialité des sessions** : la restauration des champs est désactivée par
-  défaut et disponible sous Windows. Les mots de passe, fichiers, champs cachés,
-  données de carte bancaire reconnues et codes à usage unique sont exclus.
-  DPAPI protège les sessions et leur secours pour le compte Windows ; les réglages,
-  l’historique des adresses saisies et tout le profil Gecko ne sont pas chiffrés par ce mécanisme.
-- **Récupération** : trois relances automatiques rapprochées maximum sont tentées ;
-  une relance manuelle reste possible. La restauration peut reprendre l’activité des pages.
-- **Connecteurs IA** : des outils CLI/comptes installés ou un fournisseur API/local
-  configuré sont nécessaires. Les outils navigateur de Codex App Server utilisent
-  un protocole expérimental de fonctions dynamiques qui exige une version compatible.
-  Les autres connecteurs assurent la conversation ; la page active doit être jointe explicitement.
-- **Mises à jour** : l’alpha utilise les téléchargements manuels de l’installateur
-  ou du ZIP. Le canal automatique et la véritable clé du mainteneur ne sont pas renseignés ;
-  rotation de clé et suffixes de préversion ne sont pas implémentés.
-- **Installateur** : Windows x64 uniquement, pour le compte courant, en français/anglais,
-  sans signature Authenticode. La désinstallation conserve le profil du navigateur.
-- **Performances** : les mesures de l’interface excluent les processus Gecko et
-  la mémoire GPU. Aucun comparatif de navigation multiplateforme n’est annoncé.
+- **Plateformes :** Windows x64 est la distribution navigateur validée. Le placement des onglets Linux demande X11/XWayland ; le placement Wayland natif n’est pas pris en charge.
+- **Extensions :** certaines API dépendantes de l’interface Firefox, les barres latérales, menus contextuels et créations d’onglets/fenêtres demandent encore des adaptations ; toutes les extensions Firefox ne sont pas compatibles.
+- **Web :** capture de périphériques, sites variés, plein écran HTML/vidéo et accessibilité demandent une validation plus large.
+- **Fournisseurs IA :** des CLI/comptes installés ou des API/services locaux configurés sont nécessaires. Outils, flux et reprise native dépendent du transport choisi. Les scénarios de protocole n’utilisent pas de compte fournisseur réel ; aucun modèle ni CLI n’est installé automatiquement.
+- **Sessions :** la restauration des formulaires est facultative et désactivée par défaut sous Windows. Mot de passe/fichier/champs masqués et champs reconnus de paiement/code à usage unique sont exclus. DPAPI protège les enregistrements de session/conversation pour le compte ; il ne chiffre pas tout le profil Gecko ni les préférences.
+- **Récupération :** jobs et tours interrompus sont enregistrés sans rejeu. Une annulation ne défait pas une action déjà appliquée. Les redémarrages automatiques rapprochés du moteur sont limités à trois.
+- **Volumes :** un enregistrement privé est limité à 16 Mio ; les captures portent sur le document principal et le nombre de caractères demandé. Les références SDK expirent selon leur rétention ; les résultats durables restent jusqu’à suppression.
+- **Mises à jour et installateur :** les alphas se mettent à jour par installateur/ZIP manuel. Authenticode et le canal de mise à jour signé restent à configurer. La désinstallation conserve le profil.
+- **Performances :** les mesures de l’interface excluent les processus Gecko et la mémoire GPU ; aucun benchmark de navigation multiplateforme n’est revendiqué.
 
-## Problèmes et retours
+## Migration et retours
 
-Aucune liste de corrections détaillée par problème n’est publiée pour 0.3.0.
-Les limites ci-dessus décrivent les prises en charge incomplètes et les validations
-restantes. Signalez les problèmes reproductibles dans le
-[suivi des problèmes](https://github.com/MrMybal/CyUrium/issues), avec la plateforme,
-les étapes et le résultat attendu. Retirez le contenu personnel des pages avant
-de joindre des fichiers.
+Les formats des favoris et réglages sont conservés. Les anciennes conversations sont
+préservées ; sans identifiant enregistré de session CLI native, la reprise exige une
+nouvelle session explicite. Les anciens clients HTTP/Python doivent adopter le CLI/MCP natif.
+Voir le [guide SDK et migration](docs/sdk.md).
 
-Consulter l’[architecture](docs/architecture.md), le [guide SDK](docs/sdk.md) et
-le [guide de publication](docs/releases.md) pour les détails techniques en français.
+Signaler les problèmes reproductibles dans le [suivi du projet](https://github.com/MrMybal/CyUrium/issues),
+avec plateforme, étapes et résultat attendu. Ces limites décrivent le support actuel,
+sans promettre l’absence d’autres bugs.
+
+[Ancienne Release 0.3.0 Alpha 1](https://github.com/MrMybal/CyUrium/releases/tag/v0.3.0-alpha.1)
+· [Architecture](docs/architecture.md) · [Préparer une Release](docs/releases.md)

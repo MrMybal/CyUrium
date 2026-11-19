@@ -22,7 +22,7 @@ class Provider(BaseHTTPRequestHandler):
         REQUESTS.append(body)
         self.send_response(200);self.send_header('Content-Type','application/x-ndjson');self.end_headers()
         try:
-            for text in ['Bonjour ', 'depuis ', 'le connecteur ', 'CyTools.']:
+            for text in ['Bonjour ', 'depuis ', 'le connecteur ', 'CyMCPSDK.']:
                 self.wfile.write((json.dumps({'model':'fixture','message':{'content':text},'done':False})+'\n').encode());self.wfile.flush();time.sleep(.18)
             self.wfile.write(b'{"done":true,"message":{"content":""}}\n');self.wfile.flush()
         except (BrokenPipeError,ConnectionResetError):pass
@@ -43,8 +43,10 @@ def main():
         if process.returncode:raise AssertionError((profile/'native.log').read_text(encoding='utf-8',errors='replace'))
         result=json.loads(report.read_text(encoding='utf-8'))
         assert len(REQUESTS)==2,REQUESTS
-        assert len(REQUESTS[1]['messages'])==3,'Provider session history was lost'
-        assert 'Explicit attached page content' in REQUESTS[1]['messages'][-1]['content'],'Actual Gecko page was not attached'
+        dialogue=[row for row in REQUESTS[1]['messages'] if row['role']!='system']
+        assert [row['role'] for row in dialogue]==['user','assistant','user'],'Provider session history was lost'
+        assert 'Bonjour CyUrium' in json.dumps(dialogue[0],ensure_ascii=False),'First user turn was lost'
+        assert 'Explicit attached page content' in json.dumps(dialogue[-1],ensure_ascii=False),'Actual Gecko page was not attached'
         assert 'NEVER_EXPOSE' not in json.dumps(REQUESTS),'Sensitive values sent in page attachment'
         assert not (profile/'sdk/connection.bin').exists(),'External MCP enabled by conversation panel'
         storage=profile/'sdk/private/assistant/conversations.bin'

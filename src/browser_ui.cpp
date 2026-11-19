@@ -481,7 +481,7 @@ void BrowserUi::settings(float width,float top,float height) {
         p.label(x,y+257,"Interface : Dear ImGui  ·  Fenêtres et GPU : SDL3",13,p.p.muted);
         p.box(x,y+300,w,90,p.p.tint,12);
         p.label(x+18,y+318,"Moteur web",14,p.p.accent);
-        p.label(x+18,y+347,"Gecko ESR 153.6 · Runtime embarqué · Rendu natif",12,p.p.text);
+        p.label(x+18,y+347,"Gecko ESR 153.7 · Runtime embarqué · Rendu natif",12,p.p.text);
     }
 }
 

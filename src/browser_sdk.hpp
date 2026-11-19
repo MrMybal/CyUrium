@@ -5,7 +5,7 @@
 #include <functional>
 
 namespace cyurium {
-// The owned companion supplies CyToolsCore, not another browser/UI runtime.
+// The owned companion supplies CyMCPSDK, not another browser/UI runtime.
 // Requests are applied only on the native UI thread, between ImGui frames.
 class BrowserSdk {
 public:

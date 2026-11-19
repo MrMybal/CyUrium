@@ -44,7 +44,7 @@ struct Options {
     std::string scenario = "home", driver, interface_style = "classic",url;
     int width = 1360, height = 880;
     double seconds = 0;
-    bool background_test=false,mcp=false;
+    bool background_test=false,mcp=false,assistant_sdk_test=false;
 };
 Options options(int argc,char** argv) {
     Options result;
@@ -55,6 +55,7 @@ Options options(int argc,char** argv) {
         else if(arg=="--background-test")result.background_test=true;
         else if(arg=="--mcp")result.mcp=true;
         else if(arg=="--assistant-test")result.assistant_test=utf8_path(next());
+        else if(arg=="--assistant-sdk-test"){result.assistant_test=utf8_path(next());result.assistant_sdk_test=true;}
         else if(arg=="--update-health")result.update_health=utf8_path(next());
         else if(arg=="--window-test")result.window_test=utf8_path(next());
         else if(arg=="--web-test")result.web_test=utf8_path(next());
@@ -450,6 +451,11 @@ int main(int argc,char** argv) {
                     auto& chat=state["conversations"].back();
                     if(!chat.value("error","").empty())throw std::runtime_error(chat.value("error",""));
                     assistant_complete=!chat.value("busy",false)&&chat.value("messages",nlohmann::json::array()).size()==4;
+                    if(assistant_complete&&config.assistant_sdk_test){assistant_complete=false;s.assistant_commands.push_back({{"action","send"},{"conversationId",chat["id"]},{"text","Stream until cancelled"}});assistant_phase=5;}
+                }else if(assistant_phase==5){
+                    auto& chat=state["conversations"].back();if(!chat.value("partial","").empty()){s.assistant_commands.push_back({{"action","cancel"},{"conversationId",chat["id"]}});assistant_phase=6;}
+                }else if(assistant_phase==6){
+                    auto& chat=state["conversations"].back();assistant_complete=!chat.value("busy",false)&&!chat.value("error","").empty();
                 }
                 if(!state.value("error","").empty())throw std::runtime_error(state.value("error",""));
             }
@@ -685,7 +691,8 @@ int main(int argc,char** argv) {
         }
         if(!config.assistant_test.empty()){
             if(!assistant_complete||!assistant_streamed)throw std::runtime_error("Native conversation scenario did not finish with streamed text");
-            nlohmann::json report={{"passed",true},{"provider","existing CyUEMCPSDK Ollama transport / local fixture"},{"checks",{"native conversation commands","progressive response","second turn in same provider session","explicit real Gecko page attachment","native panel rendered beside Gecko","external MCP remains disabled"}}};
+            nlohmann::json report={{"passed",true},{"provider","CyMCPSDK Ollama transport / local fixture"},{"checks",{"native conversation commands","progressive response","second turn in same provider session","explicit real Gecko page attachment","native panel rendered beside Gecko","external MCP remains disabled"}}};
+            if(config.assistant_sdk_test)report["checks"].push_back("stream cancelled through native panel command");
             std::ofstream(config.assistant_test)<<report.dump(2)<<'\n';
         }
         if(qa){

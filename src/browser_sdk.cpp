@@ -1,10 +1,12 @@
 // SPDX-FileCopyrightText: 2026 Cyberalien
 // SPDX-License-Identifier: GPL-3.0-only
 #include "browser_sdk.hpp"
+#include "automation.hpp"
 #include <algorithm>
 #include <atomic>
 #include <chrono>
 #include <fstream>
+#include <deque>
 #include <mutex>
 #include <thread>
 #ifdef _WIN32
@@ -21,16 +23,17 @@ bool web_url(std::string_view u){
     return !authority.empty()&&authority.find('@')==authority.npos;
 }
 SDL_Process* launch(const std::filesystem::path& base,const std::filesystem::path& profile,bool control,bool mcp,SDL_IOStream* log=nullptr,bool external=false){
-    auto python=base/"sdk/python/python.exe";
+    auto executable=base/"CyUriumCLI.exe";
 #ifndef _WIN32
-    python=base/"sdk/python/bin/python3";
+    executable=base/"CyUriumCLI";
 #endif
-    std::vector<std::string> args={utf8(python),"-I","-B","-u",utf8(base/"sdk"/(mcp?"client.py":"service.py")),"--profile",utf8(profile)};
+    std::vector<std::string> args={utf8(executable),mcp?"mcp":"serve","--profile",utf8(profile)};
     if(control&&!mcp)args.push_back("--control");
     if(external&&!mcp)args.push_back("--external");
     std::vector<const char*> pointers;for(auto& arg:args)pointers.push_back(arg.c_str());pointers.push_back(nullptr);
     auto props=SDL_CreateProperties();
     SDL_SetPointerProperty(props,SDL_PROP_PROCESS_CREATE_ARGS_POINTER,pointers.data());
+    if(!mcp)SDL_SetBooleanProperty(props,SDL_PROP_PROCESS_CREATE_BACKGROUND_BOOLEAN,true);
     SDL_SetNumberProperty(props,SDL_PROP_PROCESS_CREATE_STDIN_NUMBER,mcp?SDL_PROCESS_STDIO_INHERITED:SDL_PROCESS_STDIO_APP);
     SDL_SetNumberProperty(props,SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER,mcp?SDL_PROCESS_STDIO_INHERITED:SDL_PROCESS_STDIO_APP);
     SDL_SetNumberProperty(props,SDL_PROP_PROCESS_CREATE_STDERR_NUMBER,log?SDL_PROCESS_STDIO_REDIRECT:SDL_PROCESS_STDIO_INHERITED);
@@ -44,18 +47,34 @@ struct BrowserSdk::Impl {
     std::thread reader;std::mutex mutex;std::vector<Json> incoming;
     std::atomic<bool> stopping=false,failed=false;
     bool enabled=false,external=false,control=false;std::string error;
+    std::string snapshot;
+    std::chrono::steady_clock::time_point snapshot_at{};
     std::map<std::uint64_t,std::chrono::steady_clock::time_point> pending;
+    std::deque<std::string> outgoing;
+    std::size_t write_offset=0,queued_bytes=0;
 #ifdef _WIN32
     HANDLE job=nullptr;
 #endif
+    void flush_output(){
+        if(!process||failed)return;auto* pipe=SDL_GetProcessInput(process);if(!pipe){failed=true;return;}
+        std::size_t budget=65536;
+        while(!outgoing.empty()&&budget){
+            const auto& line=outgoing.front();auto count=std::min(budget,line.size()-write_offset);
+            auto written=SDL_WriteIO(pipe,line.data()+write_offset,count);
+            if(!written){if(SDL_GetIOStatus(pipe)!=SDL_IO_STATUS_NOT_READY)failed=true;break;}
+            budget-=written;write_offset+=written;queued_bytes-=written;
+            if(write_offset==line.size()){outgoing.pop_front();write_offset=0;}
+        }
+    }
     void send(Json data){
-        if(!process)return;
-        auto line=data.dump()+"\n";auto* pipe=SDL_GetProcessInput(process);
-        if(!pipe||SDL_WriteIO(pipe,line.data(),line.size())!=line.size()||!SDL_FlushIO(pipe))failed=true;
+        if(!process)return;auto line=data.dump()+"\n";
+        if(line.size()>4*1024*1024||queued_bytes+line.size()>8*1024*1024){failed=true;return;}
+        queued_bytes+=line.size();outgoing.push_back(std::move(line));flush_output();
     }
     void reply(std::uint64_t id,Json data){send({{"id",id},{"result",std::move(data)}});}
     void reject(std::uint64_t id,std::string message,std::string code="AccessDenied"){send({{"id",id},{"error",{{"code",std::move(code)},{"message",std::move(message)}}}});}
     void start(){
+        snapshot.clear();snapshot_at={};
         std::filesystem::create_directories(profile/"sdk");
         log=SDL_IOFromFile(utf8(profile/"sdk/runtime.log").c_str(),"ab");
         process=launch(base,profile,control,false,log,external);
@@ -94,7 +113,7 @@ struct BrowserSdk::Impl {
         if(job){CloseHandle(job);job=nullptr;}
 #endif
         if(log){SDL_CloseIO(log);log=nullptr;}
-        pending.clear();std::lock_guard lock(mutex);incoming.clear();
+        pending.clear();outgoing.clear();write_offset=queued_bytes=0;std::lock_guard lock(mutex);incoming.clear();
     }
 };
 BrowserSdk::BrowserSdk(std::filesystem::path base,std::filesystem::path profile):impl_(std::make_unique<Impl>()){impl_->base=std::move(base);impl_->profile=std::move(profile);}
@@ -111,14 +130,18 @@ bool BrowserSdk::pump(BrowserWorkspace& workspace,WebEngine* engine,WindowAction
     const bool wanted=services.sdk_enabled||services.assistant_started;
     if(p.enabled!=wanted||p.external!=services.sdk_enabled||p.control!=services.sdk_control){
         p.stop();p.enabled=wanted;p.external=services.sdk_enabled;p.control=services.sdk_control;p.error.clear();changed=true;
-        services.state["sdk"]={{"ready",false},{"message",p.enabled?"Démarrage de CyToolsCore…":"MCP / SDK désactivé"}};
+        services.state["sdk"]={{"ready",false},{"message",p.enabled?"Démarrage de CyMCPSDK…":"MCP / SDK désactivé"}};
         if(p.enabled)try{p.start();}catch(const std::exception& e){p.stop();p.error=e.what();}
     }
+    p.flush_output();
     if(p.failed){p.stop();p.error="Le compagnon SDK s’est arrêté. Désactivez puis réactivez le service pour le relancer.";p.failed=false;changed=true;}
     if(!p.error.empty()){services.state["sdk"]={{"ready",false},{"message",p.error}};return changed;}
     if((!engine||!engine->ready())&&!p.pending.empty()){
         for(auto& [id,_]:p.pending)p.reject(id,"Le processus de page s’est arrêté pendant la requête.","Disconnected");
         p.pending.clear();changed=true;
+    }
+    if(p.process&&std::chrono::steady_clock::now()-p.snapshot_at>std::chrono::milliseconds(100)){
+        p.snapshot_at=std::chrono::steady_clock::now();Json windows=Json::array();for(auto wid:workspace.window_ids()){auto* model=workspace.find(wid);Json tabs=Json::array();for(auto& tab:model->tabs)tabs.push_back({{"tabId",tab.id},{"url",tab.current().url},{"title",tab.current().title},{"loading",tab.web.loading},{"security",tab.web.security}});windows.push_back({{"windowId",wid},{"selectedTab",model->selected},{"tabs",tabs}});}auto snapshot=Json{{"windows",windows}};auto serialized=snapshot.dump();if(serialized!=p.snapshot){p.snapshot=std::move(serialized);p.send({{"type","browser-state"},{"data",snapshot}});}
     }
     std::vector<Json> requests;{std::lock_guard lock(p.mutex);requests.swap(p.incoming);}
     if(p.process){for(auto& command:services.assistant_commands)p.send({{"type","assistant"},{"command",std::move(command)}});services.assistant_commands.clear();}
@@ -129,21 +152,44 @@ bool BrowserSdk::pump(BrowserWorkspace& workspace,WebEngine* engine,WindowAction
             auto chat=request.value("conversationId","");for(auto& item:services.assistant["conversations"])if(item.value("id","")==chat){item["partial"]=item.value("partial","")+request.value("text","");}continue;
         }
         if(type=="ready"){
-            services.state["sdk"]={{"ready",p.external},{"message",!p.external?"MCP externe désactivé · assistant natif actif":p.control?"CyToolsCore 0.10.1 · lecture et contrôle autorisés":"CyToolsCore 0.10.1 · lecture seule"}};
+            services.state["sdk"]={{"ready",p.external},{"message",!p.external?"MCP externe désactivé · assistant natif actif":p.control?"CyMCPSDK 0.7.0 · lecture et contrôle autorisés":"CyMCPSDK 0.7.0 · lecture seule"}};
             const auto executable=p.base/
 #ifdef _WIN32
                 "CyUrium.exe";
 #else
                 "CyUrium";
 #endif
-            if(p.external)services.state["sdk"]["config"]={{"mcpServers",{{"CyUrium",{{"command",utf8(executable)},{"args",Json::array({"--mcp","--profile",utf8(p.profile)})}}}}}};
+        if(p.external)services.state["sdk"]["config"]={{"mcpServers",{{"CyUrium",{{"command",utf8(executable)},{"args",Json::array({"--mcp","--profile",utf8(p.profile)})}}}}}};
             continue;
         }
+        if(type=="restart"){p.stop();p.enabled=false;return true;}
         id=request.at("id").get<std::uint64_t>();if(!id)throw std::runtime_error("Invalid request ID");
         if(type=="cancel"){p.pending.erase(id);continue;}
         if(type!="request")throw std::runtime_error("Invalid native request");
         const auto operation=request.at("operation").get<std::string>();const auto& args=request.at("parameters");
-        if((!services.sdk_enabled&&!request.value("internal",false))||(!services.sdk_control&&operation!="browser_state"&&operation!="page_snapshot")){p.reject(id,"Le contrôle MCP est désactivé dans les paramètres.");continue;}
+        if((!services.sdk_enabled&&!request.value("internal",false))||(!services.sdk_control&&!automation::read_only(operation))){p.reject(id,"Le contrôle MCP est désactivé dans les paramètres.");continue;}
+        if(operation=="settings_get"||operation=="profile_info"){
+            p.reply(id,{{"theme",workspace.profile->theme==Theme::Dark?"dark":"light"},{"uiScale",workspace.profile->ui_scale},{"bookmarksVisible",workspace.profile->bookmarks_visible},{"hardwareAcceleration",services.hardware_acceleration}});continue;
+        }
+        if(operation=="settings_set"){
+            if(args.contains("theme"))workspace.profile->theme=args["theme"]=="dark"?Theme::Dark:Theme::Light;
+            if(args.contains("uiScale"))workspace.profile->ui_scale=args["uiScale"].get<float>();if(args.contains("bookmarksVisible"))workspace.profile->bookmarks_visible=args["bookmarksVisible"].get<bool>();
+            BrowserModel saved(workspace.profile,false);if(!saved.save(p.profile/"settings.txt"))throw std::runtime_error("Cannot save browser settings");p.reply(id,{{"saved",true}});continue;
+        }
+        if(operation=="bookmarks_list"||operation=="history_list"||operation.ends_with("_list")){
+            Json rows=Json::array();auto query=args.value("query","");
+            if(operation=="bookmarks_list"){for(auto& b:workspace.profile->bookmarks)if(query.empty()||b.title.find(query)!=b.title.npos||b.url.find(query)!=b.url.npos)rows.push_back({{"title",b.title},{"url",b.url}});}
+            else if(operation=="history_list"){for(auto& url:workspace.profile->entered_addresses)if(query.empty()||url.find(query)!=url.npos)rows.push_back({{"url",url}});}
+            else{auto name=operation.substr(0,operation.size()-5);auto value=services.state.value(name,Json::array());if(value.is_array())rows=value;else rows.push_back(value);}
+            auto offset=std::min(rows.size(),args.value("offset",std::size_t(0))),end=std::min(rows.size(),offset+args.value("limit",std::size_t(50)));Json page=Json::array();for(auto index=offset;index<end;++index)page.push_back(rows[index]);p.reply(id,{{"items",page},{"total",rows.size()},{"offset",offset},{"nextOffset",end<rows.size()?Json(end):Json()}});continue;
+        }
+        if(operation=="bookmarks_add"||operation=="bookmarks_remove"){
+            auto url=args.at("url").get<std::string>();if(!web_url(url))throw std::runtime_error("HTTP(S) URL required");auto& bookmarks=workspace.profile->bookmarks;
+            std::erase_if(bookmarks,[&](auto& b){return b.url==url;});if(operation=="bookmarks_add")bookmarks.push_back({args.at("title"),url});BrowserModel saved(workspace.profile,false);if(!saved.save(p.profile/"settings.txt"))throw std::runtime_error("Cannot save bookmarks");p.reply(id,{{"saved",true}});continue;
+        }
+        if(operation=="internal_page_open"){
+            auto* browser=workspace.find(args.at("windowId").get<WindowId>());if(!browser)throw std::runtime_error("Unknown window");auto page=args.at("page").get<std::string>();static const std::map<std::string,Page> pages={{"settings",Page::Settings},{"bookmarks",Page::Bookmarks},{"history",Page::History},{"downloads",Page::Downloads},{"extensions",Page::Extensions}};browser->open(pages.at(page));p.reply(id,{{"tabId",browser->selected}});continue;
+        }
         auto target=args.value("tabId",TabId(0));auto owner=workspace.owner(target);auto* model=workspace.find(owner);
         if(operation=="browser_state"){
             Json windows=Json::array();for(auto wid:workspace.window_ids()){

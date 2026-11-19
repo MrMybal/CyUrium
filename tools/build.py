@@ -85,8 +85,8 @@ def main():
         if sys.platform == 'win32':
             from prepare_gecko import package
             package(packaged.parent / 'engine')
-            from prepare_sdk import prepare
-            prepare(packaged.parent)
+        from prepare_sdk import prepare
+        prepare(packaged.parent, build)
         if args.configuration == 'Release':
             from check_package_paths import check_package_paths
             check_package_paths(destination/'CyUrium.app' if sys.platform == 'darwin' else destination)

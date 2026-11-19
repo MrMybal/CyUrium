@@ -1,0 +1,140 @@
+{
+  "applicationVersion": "0.4.0-alpha.1",
+  "date": "2026-11-19",
+  "platform": "Windows x64",
+  "sdk": {
+    "version": "0.7.0",
+    "revision": "791d4d7d7680213b282ec8529d248a10f8494d77",
+    "source": "unchanged source snapshot from local CyMCPSDK checkout",
+    "modules": [
+      "Core",
+      "Platform",
+      "Http",
+      "MCP",
+      "AI"
+    ]
+  },
+  "passed": true,
+  "nativeCtest": {
+    "passed": 5,
+    "failed": 0
+  },
+  "scenarios": [
+    {
+      "passed": true,
+      "sdk": "0.7.0",
+      "checks": [
+        "CLI help and clean diagnostics",
+        "native CLI discovery/schema",
+        "real browser state",
+        "bookmark saved through real UI thread",
+        "privileged URL refusal",
+        "permission escalation refusal",
+        "durable job result",
+        "authenticated peer result isolation",
+        "concurrent first pairing preserves one job owner",
+        "MCP stdio discovery and invocation"
+      ]
+    },
+    {
+      "passed": true,
+      "checks": [
+        "full UTF-8 page recovered through private chunks",
+        "disk spool used",
+        "cross-client resource denied",
+        "native grep without filesystem access",
+        "cooperative cancellation of a real Gecko operation",
+        "existing GUI --mcp preserved",
+        "real MCP mutation visible through CLI",
+        "MCP permission escalation refused",
+        "expired reference fails without replay",
+        "performance JSONL excludes fixture contents",
+        "durable full result survives restart and SDK resource expiry",
+        "legacy SQLite jobs imported once with original token",
+        "other legacy owners excluded",
+        "original legacy storage unchanged",
+        "offline saved bookmarks without launching GUI",
+        "same read-only host policy through CLI and MCP"
+      ]
+    },
+    {
+      "checks": [
+        "native conversation commands",
+        "progressive response",
+        "second turn in same provider session",
+        "explicit real Gecko page attachment",
+        "native panel rendered beside Gecko",
+        "external MCP remains disabled",
+        "same real provider transcript across turns",
+        "page input values excluded from provider prompt",
+        "conversation file protected with Windows DPAPI"
+      ],
+      "passed": true,
+      "provider": "CyMCPSDK Ollama transport / local fixture"
+    },
+    {
+      "checks": [
+        "native conversation commands",
+        "progressive response",
+        "second turn in same provider session",
+        "explicit real Gecko page attachment",
+        "native panel rendered beside Gecko",
+        "external MCP remains disabled",
+        "stream cancelled through native panel command",
+        "compact search/describe/call path",
+        "real native bookmark from chat",
+        "real allowlisted remote mutation from chat",
+        "remote tool error returned to model",
+        "selected remote resources",
+        "remote cache hit and notification invalidation before TTL",
+        "API context reduced while full history/tool groups retained",
+        "cancelled turn persisted",
+        "private performance metadata only"
+      ],
+      "passed": true,
+      "provider": "CyMCPSDK Ollama transport / local fixture"
+    },
+    {
+      "passed": true,
+      "checks": [
+        "raw legacy DPAPI format read",
+        "full history pagination",
+        "API transcript migrated on explicit send",
+        "native checkpoint restored across process restart",
+        "legacy CLI transcript preserved with explicit fork",
+        "crashed pending turn retained without replay"
+      ]
+    }
+  ],
+  "regressions": {
+    "realGeckoNavigationHistoryTabMovesAndRecovery": true,
+    "bundledAdBlockAndPersistentUserChoices": true,
+    "packagingUnitTests": 3,
+    "releaseUnitTests": 4
+  },
+  "scope": "Real application, native CLI/MCP and remote application; model generation uses local protocol fixtures, no provider account. macOS/Linux and live provider accounts were not tested.",
+  "engineVersion": "153.7.0esr",
+  "webChecks": [
+    "HTML and JavaScript",
+    "native menu above web content",
+    "management pages use separate tabs",
+    "original web surface hidden while management tab is selected",
+    "original document and form preserved after closing management tabs",
+    "form state",
+    "back/forward navigation",
+    "native child embedding",
+    "detach first window",
+    "detach last tab of a secondary window",
+    "attach without reload",
+    "real HTTPS navigation",
+    "automatic recovery after actual engine termination"
+  ],
+  "adBlockChecks": [
+    "packaged Mozilla-signed extension installed without a prompt",
+    "first page filtered with bundled EasyList; no public site needed",
+    "normal script preserved; ad script never reaches fixture server",
+    "existing disabled installation respected during migration",
+    "re-enabled extension filters after restart",
+    "uninstall preserved after restart"
+  ]
+}

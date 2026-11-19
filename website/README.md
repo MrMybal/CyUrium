@@ -84,10 +84,16 @@ python tools/build_showcase.py --verify-only
 ## GitHub Pages
 
 The [Pages workflow](https://github.com/MrMybal/CyUrium/blob/main/.github/workflows/pages.yml) builds and verifies the site
-on every push to `main`, then publishes only `dist/website/` to GitHub Pages.
-It can also be started manually from the repository's Actions tab.
+only when started manually, then publishes only `dist/website/` to GitHub Pages.
+Pushes and tags do not start the workflow.
 The repository's Pages publishing source is **GitHub Actions**.
 
 The build uses the same commands as the local preview. Deployments use GitHub's
 Pages artifact and short-lived workflow identity; no personal deployment token
 is stored in the repository. Local build and preview commands do not deploy.
+
+## Publishing
+
+The Pages workflow is manual. A push only updates source documents; it does not
+deploy this site. Build and verify locally before an explicitly requested Pages
+deployment. Download links target the 0.4.0 Alpha 1 release.

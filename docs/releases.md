@@ -2,7 +2,7 @@
 
 ## Alpha Windows installable
 
-La préversion [0.3.0 Alpha 1](https://github.com/MrMybal/CyUrium/releases/tag/v0.3.0-alpha.1)
+La préversion [0.4.0 Alpha 1](https://github.com/MrMybal/CyUrium/releases/tag/v0.4.0-alpha.1)
 est distribuée dans le dépôt public du projet : installateur Windows x64,
 ZIP portable, archive des sources correspondantes et `SHA256SUMS`.
 L’installateur Inno Setup propose français/anglais, installe pour le compte
@@ -22,13 +22,26 @@ python tools/package_windows.py --iscc 'C:\Program Files\Inno Setup 7\ISCC.exe' 
 python tools/package_source.py --output dist/releases/alpha
 ```
 
-Le compilateur utilisé pour Alpha 1 est verrouillé dans
+Le compilateur utilisé pour cette alpha est verrouillé dans
 `packaging/windows/compiler.lock.json`. Vérifier son empreinte et sa signature
 officielle avant son exécution. Le script de paquet crée un staging neuf, conserve
 uniquement les fichiers Gecko approuvés et contrôle les profils et chemins locaux.
 Il refuse d’écraser un jeu de paquets existant. L’archive des sources provient du
 commit Git et ajoute les archives officielles verrouillées de SDL, Dear ImGui et
 uBlock Origin. Les bibliothèques déjà vendues dans le dépôt restent incluses.
+
+## Publication locale et workflows manuels
+
+Les workflows Desktop, Pages et Release sont uniquement déclenchés manuellement.
+Un push ou un tag ne lance pas de compilation ni de déploiement. Pour publier une
+alpha compilée localement, pousser le commit et son tag, créer une préversion
+GitHub puis joindre l’installateur, le ZIP portable, les sources correspondantes
+et `SHA256SUMS`. Aucun workflow Actions n’est nécessaire pour ces assets.
+La vitrine peut être compilée localement ; son déploiement Pages reste séparé.
+
+Le paquet 0.4.0 contient `CyUriumCLI.exe` et les sources CyMCPSDK vendues dans
+l’archive correspondante. Il n’embarque plus le runtime Python ni les wrappers
+CyToolsCore. Les profils et les anciennes bases de jobs sont hors du paquet.
 
 ## Canal de mises à jour signées
 

@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2026 Cyberalien
 # SPDX-License-Identifier: GPL-3.0-only
 cmake_minimum_required(VERSION 3.24)
-project(CyUrium VERSION 0.3.0 LANGUAGES C CXX)
+project(CyUrium VERSION 0.4.0 LANGUAGES C CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -60,6 +60,8 @@ if(BUILD_TESTING)
   endif()
 endif()
 
+include(cmake/CyMCPSDK.cmake)
+
 if(CYURIUM_BUILD_APP)
   include(cmake/Dependencies.cmake)
   add_library(cyurium_imgui STATIC
@@ -82,6 +84,7 @@ if(CYURIUM_BUILD_APP)
   target_include_directories(CyUrium PRIVATE third_party/json)
   target_compile_definitions(CyUrium PRIVATE CYURIUM_VERSION="${PROJECT_VERSION}")
   target_link_libraries(CyUrium PRIVATE cyurium_core cyurium_cyui)
+  target_link_libraries(CyUrium PRIVATE cyurium_automation)
   if(BUILD_TESTING)
     add_executable(cyurium_ui_tests tests/browser_ui_tests.cpp src/browser_ui.cpp src/browser_service_ui.cpp src/browser_assistant_ui.cpp src/browser_theme.cpp)
     target_compile_definitions(cyurium_ui_tests PRIVATE CYURIUM_VERSION="${PROJECT_VERSION}")

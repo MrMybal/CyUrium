@@ -14,7 +14,7 @@ class WindowsPackageTests(unittest.TestCase):
         self.temp = tempfile.TemporaryDirectory()
         self.root = Path(self.temp.name)
         for name in ('CyUrium.exe', 'LICENSE', 'NOTICE', 'THIRD_PARTY_NOTICES.md',
-                     'sdk/python/python.exe', 'assets/branding/urium.ico', 'LICENCES/Inno-Setup.txt'):
+                     'CyUriumCLI.exe', 'sdk/cymcpsdk.lock.json', 'sdk/operations.json', 'assets/branding/urium.ico', 'LICENCES/Inno-Setup.txt'):
             path = self.root / name
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_bytes(b'Packaging fixture, never executed')
@@ -43,11 +43,12 @@ class WindowsPackageTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'private-key file'):
             validate_package(self.root, '0.3.0')
 
-    def test_public_certificate_bundle_is_allowed(self):
-        ca = self.root / 'sdk/python/Lib/site-packages/certifi/cacert.pem'
-        ca.parent.mkdir(parents=True)
-        ca.write_text('Public CA bundle fixture', encoding='utf-8')
-        validate_package(self.root, '0.3.0')
+    def test_retired_runtime_is_rejected(self):
+        retired = self.root / 'sdk/python/python.exe'
+        retired.parent.mkdir(parents=True)
+        retired.write_bytes(b'Retired runtime fixture')
+        with self.assertRaisesRegex(ValueError, 'Retired SDK runtime'):
+            validate_package(self.root, '0.3.0')
 
 
 if __name__ == '__main__':

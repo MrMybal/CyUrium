@@ -70,6 +70,10 @@ Sauvegarde avant intégration, projet sans dépôt Git :
 `.cache/backups/before-cytools-20261101-005944.zip`, SHA-256
 `f9c8c3ef0a8de0ff317da8bcfc196c40316fdfd7272b8627883cfc4ee7780af1`.
 
+## CyMCPSDK natif — 0.4.0
+
+Les sources utilisent CyMCPSDK 0.7.0, révision `791d4d7d7680213b282ec8529d248a10f8494d77`. Les scénarios locaux reproductibles `tools/test_sdk.py` et `tools/test_assistant.py` couvrent CLI/MCP, favoris réels, isolation, gros résultats, jobs durables, outils distants, annulation et réduction du contexte. Voir [le rapport natif](validation/cymcpsdk.json) et [les commandes et limites](sdk.md). Les rapports historiques ci-dessous décrivent les versions précédentes.
+
 ## Résultat
 
 - Compilation Release MSVC x64 réussie, runtime C++ statique.

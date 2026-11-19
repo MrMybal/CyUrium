@@ -1,0 +1,2 @@
+#pragma once
+inline constexpr const char* cyurium_operations_json=R"CYURIUM(@CYURIUM_OPERATIONS_JSON@)CYURIUM";

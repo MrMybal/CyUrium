@@ -26,7 +26,7 @@ def validate_package(source, version):
     if app.get('App', 'Version', fallback='') != version:
         raise ValueError('The built browser and requested version differ')
     required = ('CyUrium.exe', 'LICENSE', 'NOTICE', 'THIRD_PARTY_NOTICES.md',
-                'sdk/python/python.exe', 'assets/branding/urium.ico', 'LICENCES/Inno-Setup.txt')
+                'CyUriumCLI.exe', 'sdk/cymcpsdk.lock.json', 'sdk/operations.json', 'assets/branding/urium.ico', 'LICENCES/Inno-Setup.txt')
     if any(not (source / name).is_file() for name in required):
         raise ValueError('Incomplete Windows package or license notices')
     forbidden_parts = {'profile', 'profiles', '.runtime', '__pycache__', '.git'}
@@ -34,8 +34,12 @@ def validate_package(source, version):
     for path in source.rglob('*'):
         if any(part.lower() in forbidden_parts for part in path.relative_to(source).parts):
             raise ValueError('Profile or local-state directory in package')
-        public_ca = path.relative_to(source).as_posix() == 'sdk/python/Lib/site-packages/certifi/cacert.pem'
-        if path.is_file() and path.suffix.lower() in forbidden_suffixes and not public_ca:
+        relative = path.relative_to(source).as_posix().lower()
+        if relative.startswith(('sdk/python', 'sdk/vendor', 'sdk/packages')) or path.name.lower() in ('cytool.json','service.py','assistant.py','cytoolscore-mit.txt','cyuemcpsdk-mit.txt'):
+            raise ValueError('Retired SDK runtime in package: ' + relative)
+        if relative.startswith('sdk/') and relative not in ('sdk/operations.json','sdk/cymcpsdk.lock.json'):
+            raise ValueError('Unexpected or private SDK data in package: ' + relative)
+        if path.is_file() and path.suffix.lower() in forbidden_suffixes:
             raise ValueError('Local-state or private-key file in package: ' + path.name)
     check_package_paths(source)
 

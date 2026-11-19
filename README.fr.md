@@ -13,8 +13,8 @@
     </td>
     <td width="300" align="right" valign="top">
       <p><sub>Licence de l’application</sub><br><a href="LICENSE"><strong>GPL-3.0-only</strong></a></p>
-      <p><sub>Version</sub><br><a href="VERSION.fr.md"><strong>0.3.0</strong></a><br><strong>ALPHA</strong></p>
-      <p><a href="https://github.com/MrMybal/CyUrium/releases/download/v0.3.0-alpha.1/CyUrium-0.3.0-windows-x64-setup.exe"><strong>Télécharger pour Windows x64</strong></a><br><a href="https://github.com/MrMybal/CyUrium/releases/tag/v0.3.0-alpha.1">ZIP portable · sources</a></p>
+      <p><sub>Version</sub><br><a href="VERSION.fr.md"><strong>0.4.0 · Alpha 1</strong></a><br><strong>ALPHA</strong></p>
+      <p><a href="https://github.com/MrMybal/CyUrium/releases/download/v0.4.0-alpha.1/CyUrium-0.4.0-windows-x64-setup.exe"><strong>Télécharger pour Windows x64</strong></a><br><a href="https://github.com/MrMybal/CyUrium/releases/tag/v0.4.0-alpha.1">ZIP portable · sources</a></p>
     </td>
   </tr>
 </table>
@@ -26,7 +26,7 @@ web Gecko, des onglets déplaçables et un panneau de conversation IA intégré.
 Son interface C++20 utilise Dear ImGui et SDL3 GPU, avec le logo original de
 CyVR_Urium et un thème brun et ambre.
 
-> **ALPHA · 0.3.0**
+> **ALPHA · 0.4.0 Alpha 1**
 >
 > Un navigateur Windows expérimental pour les essais et les retours utilisateurs.
 > Certaines fonctions restent incomplètes. macOS et Linux disposent actuellement
@@ -39,6 +39,8 @@ Découvrez le [showcase anglais/français](https://mrmybal.github.io/CyUrium/?la
 avec ses captures de l’application, sa galerie interactive et ses guides HTML.
 Le [guide de compilation et d’aperçu (anglais)](website/README.md) explique aussi
 comment l’ouvrir localement.
+
+**0.4.0 Alpha 1** intègre **CyMCPSDK natif**, le compagnon console `CyUriumCLI.exe` et un registre partagé pour le chat, les scripts et les clients MCP. Voir le [guide CLI/MCP et migration](docs/sdk.md).
 
 ## À propos de CyUrium
 
@@ -112,9 +114,9 @@ Sur macOS, utiliser Cmd à la place de Ctrl.
 
 ## Installation
 
-**[Télécharger l’installateur Windows x64](https://github.com/MrMybal/CyUrium/releases/download/v0.3.0-alpha.1/CyUrium-0.3.0-windows-x64-setup.exe)** ·
-[ZIP portable et sources correspondantes](https://github.com/MrMybal/CyUrium/releases/tag/v0.3.0-alpha.1).
-Il s’agit de la préversion **0.3.0 Alpha 1**. État actuel des plateformes :
+**[Télécharger l’installateur Windows x64](https://github.com/MrMybal/CyUrium/releases/download/v0.4.0-alpha.1/CyUrium-0.4.0-windows-x64-setup.exe)** ·
+[ZIP portable et sources correspondantes](https://github.com/MrMybal/CyUrium/releases/tag/v0.4.0-alpha.1).
+Il s’agit de la préversion **0.4.0 Alpha 1**. État actuel des plateformes :
 
 | Plateforme | Disponibilité actuelle |
 | --- | --- |
@@ -131,8 +133,8 @@ Il s’agit de la préversion **0.3.0 Alpha 1**. État actuel des plateformes :
 L’installateur alpha n’est pas signé avec Authenticode. Les mises à jour signées
 par le mainteneur restent à configurer ; les prochaines alphas s’installent manuellement.
 
-Le paquet Windows embarque Gecko et son Python privé : son exécution ne demande
-ni Firefox installé ni Python système. Un pilote GPU compatible est nécessaire.
+Le paquet Windows embarque Gecko et le compagnon CyMCPSDK natif, sans runtime
+Python ni Firefox installé. Un pilote GPU compatible est nécessaire.
 Android et Meta Quest restent dans le projet distinct
 CyVR_Urium.
 
@@ -144,7 +146,8 @@ CyVR_Urium.
 Utiliser **Python 3**, **CMake 3.24+** et un compilateur C++20. Sous Windows,
 installer les **outils C++ de Visual Studio 2022**, le **Windows SDK**,
 **CMake/Ninja** et **7-Zip**. macOS demande les outils en ligne de commande Xcode ;
-Linux demande les bibliothèques de développement X11/Wayland.
+Linux demande les bibliothèques de développement X11/Wayland. Le module HTTP
+du SDK natif demande aussi les fichiers de développement libcurl sous Linux/macOS.
 
 ```sh
 git clone https://github.com/MrMybal/CyUrium.git
@@ -172,7 +175,7 @@ est disponible, sauf choix explicite d’un pilote SDL.
 Dépendances Debian/Ubuntu :
 
 ```sh
-sudo apt install build-essential cmake ninja-build pkg-config libx11-dev libxext-dev libxrandr-dev libxcursor-dev libxfixes-dev libxi-dev libxss-dev libxkbcommon-dev libwayland-dev wayland-protocols libegl1-mesa-dev libdrm-dev libgbm-dev libdecor-0-dev
+sudo apt install build-essential cmake ninja-build pkg-config libcurl4-openssl-dev libx11-dev libxext-dev libxrandr-dev libxcursor-dev libxfixes-dev libxi-dev libxss-dev libxkbcommon-dev libwayland-dev wayland-protocols libegl1-mesa-dev libdrm-dev libgbm-dev libdecor-0-dev
 ```
 
 Le moteur Windows provient de la distribution officielle Firefox ESR verrouillée.
@@ -193,10 +196,31 @@ paquets signés ou de distribuer les sources correspondantes.
 
 </details>
 
+### CLI natif et MCP
+
+Activez le service local dans **Paramètres > Système** avant de connecter des
+clients externes. La lecture est autorisée par défaut ; le contrôle du navigateur
+a son propre réglage. Le panneau Conversation fonctionne sans accès externe.
+
+```powershell
+.\dist\windows\CyUrium\CyUriumCLI.exe --help
+.\dist\windows\CyUrium\CyUriumCLI.exe list
+.\dist\windows\CyUrium\CyUriumCLI.exe describe bookmarks_add
+.\dist\windows\CyUrium\CyUriumCLI.exe invoke browser_state
+.\dist\windows\CyUrium\CyUriumCLI.exe mcp
+```
+
+Utilisez `--profile DIR` pour choisir une instance, `--client NOM` pour une
+identité de script persistante et `--args-file FICHIER` pour les arguments JSON.
+Les lectures compatibles du profil enregistré acceptent `--offline`. Le
+[guide SDK](docs/sdk.md) décrit les jobs durables, l’annulation, les outils distants
+autorisés et l’entrée existante `CyUrium.exe --mcp`.
+
 ### Présentation locale
 
 Le showcase est [disponible sur GitHub Pages](https://mrmybal.github.io/CyUrium/?lang=fr)
-et se reconstruit automatiquement à chaque modification de `main`.
+et peut aussi être généré localement comme un dossier statique complet. Sa
+publication sur GitHub Pages est une opération distincte, déclenchée manuellement.
 
 Compiler la présentation complète anglais/français, avec captures locales et guides HTML :
 
@@ -227,21 +251,18 @@ utilisent la [GNU GPL version 3 uniquement](LICENSE), selon le périmètre de
 | [SDL 3.2.28](https://github.com/libsdl-org/SDL/tree/release-3.2.28) | [zlib](https://github.com/libsdl-org/SDL/blob/release-3.2.28/LICENSE.txt) | Fenêtres, événements et abstraction GPU. |
 | [Snapshot CyUI](third_party/cyui/README.md) | [MIT](third_party/cyui/LICENSE) | Thèmes, DPI et contrôles de réglages embarqués ; pas toute la bibliothèque applicative. |
 | [nlohmann JSON 3.12.0](https://github.com/nlohmann/json/tree/v3.12.0) | [MIT](third_party/json/LICENSE.MIT) | Données JSON et protocoles natifs. |
-| [Gecko ESR 153.6.0](engine/runtime.lock.json) | [MPL-2.0](engine/MPL-2.0.txt) et notices des composants embarqués | Moteur web Windows, distribué avec les notices tierces Mozilla. |
+| [Gecko ESR 153.7.0](engine/runtime.lock.json) | [MPL-2.0](engine/MPL-2.0.txt) et notices des composants embarqués | Moteur web Windows, distribué avec les notices tierces Mozilla. |
 | [uBlock Origin 1.75.0](https://github.com/gorhill/uBlock/tree/1.75.0) | [GPL-3.0-only et notices des composants](engine/BUNDLED_EXTENSIONS.md) | Extension distincte signée par Mozilla, avec ses sources lisibles et notices des listes de filtres. |
-| [CyToolsCore 0.10.1](https://github.com/MrMybal/CyToolsCore) | [MIT](LICENCES/CyToolsCore-MIT.txt) | Runtime des opérations et tâches du SDK Windows. |
-| [CyUEMCPSDK 0.1.8](https://github.com/MrMybal/CyUEMCPSDK) | [MIT](LICENCES/CyUEMCPSDK-MIT.txt) | Snapshot des fournisseurs et du service de conversation portables. |
-| [CPython 3.14.10](https://www.python.org/downloads/release/python-31410/) | [PSF et notices des composants](https://docs.python.org/3/license.html) | Runtime SDK privé Windows ; texte intégral dans `LICENCES/SDK/Python.txt` du paquet. |
-| [MCP Python SDK 1.30.0](https://github.com/modelcontextprotocol/python-sdk) | [MIT](https://github.com/modelcontextprotocol/python-sdk/blob/main/LICENSE) | Transport MCP externe, activé séparément de la conversation. |
-| [cryptography](https://github.com/pyca/cryptography) | [Apache-2.0 OR BSD-3-Clause](https://github.com/pyca/cryptography/blob/main/LICENSE) et notices embarquées | Dépendance du SDK Python et outil de signature réservé au mainteneur. |
+| [CyMCPSDK 0.7.0](https://github.com/MrMybal/CyMCPSDK) | [MIT](third_party/cymcpsdk/LICENSE) | Registre natif, CLI/MCP, ressources et fournisseurs de conversation. |
+| [cpp-httplib / PicoSHA2](third_party/cymcpsdk/THIRD_PARTY_NOTICES.md) | MIT | Transport HTTP local et empreintes, embarqués dans CyMCPSDK. |
 | [markdown-it-py 4.2.0](https://github.com/executablebooks/markdown-it-py) / [mdurl 0.1.2](https://github.com/executablebooks/mdurl) | [MIT](https://github.com/executablebooks/markdown-it-py/blob/master/LICENSE) / [MIT](https://github.com/executablebooks/mdurl/blob/master/LICENSE) | Export des guides lors de la compilation du showcase uniquement ; aucun des deux ne s’exécute dans le site statique ou le navigateur. |
 | [Inno Setup 7.1.1](https://github.com/jrsoftware/issrc/tree/is-7_1_1) | [Licence Inno Setup](LICENCES/Inno-Setup.txt) | Installateur et désinstalleur Windows. |
 | [Roboto Medium](https://github.com/ocornut/imgui/tree/v1.92.5-docking/misc/fonts) | [Apache-2.0](assets/Roboto-LICENSE.txt) | Police d’interface embarquée. |
 
 Ce tableau est un index des composants principaux. Conserver les
-[notices tierces complètes](THIRD_PARTY_NOTICES.md), `licenses/`, `LICENCES/SDK/`,
+[notices tierces complètes](THIRD_PARTY_NOTICES.md), `licenses/`, `LICENCES/`,
 les notices Gecko et les sources/notices de l’extension livrées dans le paquet.
-Le [verrou du SDK](sdk/requirements.lock.json) recense les autres dépendances Python.
+Le [verrou du SDK](sdk/cymcpsdk.lock.json) conserve la révision native et ses empreintes. Python cryptography est réservé aux outils de signature du mainteneur.
 
 ## Références et liens
 
